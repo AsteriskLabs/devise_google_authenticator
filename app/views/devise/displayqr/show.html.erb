@@ -1,0 +1,12 @@
+<h2>Your QR Code</h2>
+
+<%= google_authenticator_qrcode(resource) %>
+
+<%= form_for(resource, :as => resource_name, :url => [resource_name, :displayqr], :html => { :method => :put }) do |f| %>
+	<%= devise_error_messages! %>
+	<h3>Would you like to enable Google Authenticator?</h3>
+	<p><%= f.label :gauth_enabled, "Google Authenticator Status" %><br />
+	<%= f.check_box :gauth_enabled %></p>
+	
+	<p><%= f.submit "Continue.." %></p>
+<% end %>

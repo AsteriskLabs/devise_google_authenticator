@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "devise_google_authenticator"
   gem.homepage = "http://github.com/xntrik/devise_google_authenticator"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Devise Google Authenticator Extension}
+  gem.description = %Q{Devise Google Authenticator Extension}
   gem.email = "xntrik@gmail.com"
   gem.authors = ["Christian Frichot"]
   # dependencies defined in Gemfile
