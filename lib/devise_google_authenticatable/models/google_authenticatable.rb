@@ -1,5 +1,5 @@
 require 'rotp'
-require 'devise_google_authenticatable/hooks/google_authenticatable'
+#require 'devise_google_authenticatable/hooks/google_authenticatable'
 
 module Devise # :nodoc:
   module Models # :nodoc:
@@ -22,6 +22,10 @@ module Devise # :nodoc:
         
         def set_gauth_enabled(param)
           self.update_without_password(param)
+        end
+        
+        def login_phase_one
+          return "yep"
         end
 
         private

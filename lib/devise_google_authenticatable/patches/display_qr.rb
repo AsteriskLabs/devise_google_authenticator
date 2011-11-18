@@ -14,6 +14,7 @@ module DeviseGoogleAuthenticator::Patches
           if resource.active_for_authentication?
             set_flash_message :notice, :signed_up if is_navigational_format?
             sign_in(resource_name, resource)
+            
             respond_with resource, :location => {:controller => 'displayqr', :action => 'show'}
           else
             set_flash_message :notice, :inactive_signed_up, :reason => inactive_reason(resource) if is_navigational_format?

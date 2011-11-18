@@ -1,6 +1,6 @@
 class Devise::CheckgaController < Devise::SessionsController
-  
-#  include Devise::Controllers::InternalHelpers
+  prepend_before_filter :require_no_authentication, :only => [ :show, :update ]
+  include Devise::Controllers::InternalHelpers
   
   def show
     render_with_scope :show
