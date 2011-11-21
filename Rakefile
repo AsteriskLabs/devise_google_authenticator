@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/xntrik/devise_google_authenticator"
   gem.license = "MIT"
   gem.summary = %Q{Devise Google Authenticator Extension}
-  gem.description = %Q{Devise Google Authenticator Extension}
+  gem.description = %Q{Devise Google Authenticator Extension, for adding Google's OTP to your Rails apps!}
   gem.email = "xntrik@gmail.com"
   gem.authors = ["Christian Frichot"]
   # dependencies defined in Gemfile

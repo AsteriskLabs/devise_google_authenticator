@@ -20,7 +20,6 @@ module DeviseGoogleAuthenticator::Patches
 
           # Okay, we have the method to get the qr secret, lets check if the user has gauth enabled
           if resource.gauth_enabled.to_i != 0 #gauth_enabled is not set to zero, therefore it's ON!
-            puts "resource.gauth_enabled != 0"
             
             # Orite, At this point the user model includes the extension stuff
             # PLUS, gauth_enabled is ON, so lets try and authenticate .. but first
@@ -41,11 +40,13 @@ module DeviseGoogleAuthenticator::Patches
               
                 #Lets account for the fact the timing may not always be accurate, so go backwards, current and forwards
                 #If the submitted OTP matches, then gauth_successful is true - YAY for you! .. Yay for you indeed.
-                if submitted_value = ROTP::TOTP.new(resource.get_qr).at(Time.now.ago(30))
+                
+                #CF TODO: Do some checking here, how late can these codes be??
+                if submitted_value == ROTP::TOTP.new(resource.get_qr).at(Time.now.ago(30))
                   gauth_successful = true
-                elsif submitted_value = ROTP::TOTP.new(resource.get_qr).at(Time.now)
+                elsif submitted_value == ROTP::TOTP.new(resource.get_qr).at(Time.now)
                   gauth_successful = true
-                elsif submitted_value = ROTP::TOTP.new(resource.get_qr).at(Time.now.in(30))
+                elsif submitted_value == ROTP::TOTP.new(resource.get_qr).at(Time.now.in(30))
                   gauth_successful = true
                 end
               end
