@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Christian Frichot"]
-  s.date = "2011-11-20"
-  s.description = "Devise Google Authenticator Extension"
+  s.date = "2011-11-21"
+  s.description = "Devise Google Authenticator Extension, for adding Google's OTP to your Rails apps!"
   s.email = "xntrik@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
