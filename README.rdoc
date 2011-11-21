@@ -1,6 +1,18 @@
-= devise_google_authenticator
+= Devise Google Authenticator
 
-Description goes here.
+This is a devise[https://github.com/plataformatec/devise] extension to allow your app to utilise Google Authenticator[http://code.google.com/p/google-authenticator/] for Time-based One Time Passwords (TOTP).
+
+== Changes
+* Version 0.1 - initial release, just to push it up, is still very early and requires a bit work
+
+== Usage
+* After getting devise working with your rails app, add a 'require devise_google_authenticator' line.
+* Modify your user model (through a migration) and add t.gauth_secret and t.gauth_enabled
+* Modify your user model (through its model file) and include :google_authenticatable to your 'devise' line
+* Modify your user model (through its model file) and include :gauth_enabled into your model's attr_accessible
+* Ensure you've installed devise's views, and modify the sessions .. #CF TODO
+* Migrate your db
+
 
 == Contributing to devise_google_authenticator
  
