@@ -15,7 +15,7 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "devise_google_authenticator"
-  gem.homepage = "http://github.com/xntrik/devise_google_authenticator"
+  gem.homepage = "http://github.com/AsteriskLabs/devise_google_authenticator"
   gem.license = "MIT"
   gem.summary = %Q{Devise Google Authenticator Extension}
   gem.description = %Q{Devise Google Authenticator Extension, for adding Google's OTP to your Rails apps!}
