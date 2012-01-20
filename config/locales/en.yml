@@ -1,0 +1,4 @@
+en:
+	devise:
+		submit_token: "Check Token"
+		submit_token_title: "Please enter your Google Authenticator token:"

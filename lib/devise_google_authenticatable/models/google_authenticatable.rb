@@ -28,6 +28,11 @@ module Devise # :nodoc:
           return "yep"
         end
 
+        def assign_tmp
+          self.update_attributes(:gauth_tmp => ROTP::Base32.random_base32, :gauth_tmp_datetime => DateTime.now)
+          self.gauth_tmp
+        end
+
         private
 
         def assign_auth_secret
@@ -37,7 +42,9 @@ module Devise # :nodoc:
       end
 
       module ClassMethods # :nodoc:
-        #Something here?
+        def find_by_gauth_tmp(gauth_tmp)
+          find(:first, :conditions => {:gauth_tmp => gauth_tmp})
+        end
       end
     end
   end
