@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "devise_google_authenticator"
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Christian Frichot"]
-  s.date = "2011-11-21"
+  s.date = "2012-01-20"
   s.description = "Devise Google Authenticator Extension, for adding Google's OTP to your Rails apps!"
   s.email = "xntrik@gmail.com"
   s.extra_rdoc_files = [
@@ -28,6 +28,7 @@ Gem::Specification.new do |s|
     "app/controllers/devise/displayqr_controller.rb",
     "app/views/devise/checkga/show.html.erb",
     "app/views/devise/displayqr/show.html.erb",
+    "config/locales/en.yml",
     "devise_google_authenticator.gemspec",
     "lib/devise_google_authenticatable/controllers/helpers.rb",
     "lib/devise_google_authenticatable/hooks/google_authenticatable.rb",
@@ -40,10 +41,54 @@ Gem::Specification.new do |s|
     "lib/devise_google_authenticatable/routes.rb",
     "lib/devise_google_authenticatable/schema.rb",
     "lib/devise_google_authenticator.rb",
-    "test/helper.rb",
-    "test/test_devise_google_authenticator.rb"
+    "lib/generators/devise_google_authenticator/install_generator.rb",
+    "test/generators_test.rb",
+    "test/integration/invitation_test.rb",
+    "test/integration_tests_helper.rb",
+    "test/mailers/invitation_mail_test.rb",
+    "test/model_tests_helper.rb",
+    "test/models/invitable_test.rb",
+    "test/models_test.rb",
+    "test/orm/active_record.rb",
+    "test/orm/mongoid.rb",
+    "test/rails_app/app/controllers/admins_controller.rb",
+    "test/rails_app/app/controllers/application_controller.rb",
+    "test/rails_app/app/controllers/free_invitations_controller.rb",
+    "test/rails_app/app/controllers/home_controller.rb",
+    "test/rails_app/app/controllers/users_controller.rb",
+    "test/rails_app/app/helpers/application_helper.rb",
+    "test/rails_app/app/models/admin.rb",
+    "test/rails_app/app/models/octopussy.rb",
+    "test/rails_app/app/models/user.rb",
+    "test/rails_app/app/views/admins/new.html.erb",
+    "test/rails_app/app/views/free_invitations/new.html.erb",
+    "test/rails_app/app/views/home/index.html.erb",
+    "test/rails_app/app/views/layouts/application.html.erb",
+    "test/rails_app/app/views/users/invitations/new.html.erb",
+    "test/rails_app/config.ru",
+    "test/rails_app/config/application.rb",
+    "test/rails_app/config/boot.rb",
+    "test/rails_app/config/database.yml",
+    "test/rails_app/config/environment.rb",
+    "test/rails_app/config/environments/development.rb",
+    "test/rails_app/config/environments/production.rb",
+    "test/rails_app/config/environments/test.rb",
+    "test/rails_app/config/initializers/backtrace_silencers.rb",
+    "test/rails_app/config/initializers/devise.rb",
+    "test/rails_app/config/initializers/inflections.rb",
+    "test/rails_app/config/initializers/mime_types.rb",
+    "test/rails_app/config/initializers/secret_token.rb",
+    "test/rails_app/config/initializers/session_store.rb",
+    "test/rails_app/config/locales/en.yml",
+    "test/rails_app/config/mongoid.yml",
+    "test/rails_app/config/routes.rb",
+    "test/rails_app/db/migrate/20100401102949_create_tables.rb",
+    "test/rails_app/script/rails",
+    "test/routes_test.rb",
+    "test/support/locale/en.yml",
+    "test/test_helper.rb"
   ]
-  s.homepage = "http://github.com/xntrik/devise_google_authenticator"
+  s.homepage = "http://github.com/AsteriskLabs/devise_google_authenticator"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.10"
@@ -56,7 +101,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<rails>, [">= 0"])
       s.add_runtime_dependency(%q<devise>, [">= 0"])
       s.add_runtime_dependency(%q<rotp>, [">= 0"])
-      s.add_development_dependency(%q<shoulda>, [">= 0"])
+      s.add_development_dependency(%q<shoulda>, ["~> 2.11.3"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
@@ -64,7 +109,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rails>, [">= 0"])
       s.add_dependency(%q<devise>, [">= 0"])
       s.add_dependency(%q<rotp>, [">= 0"])
-      s.add_dependency(%q<shoulda>, [">= 0"])
+      s.add_dependency(%q<shoulda>, ["~> 2.11.3"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<rcov>, [">= 0"])
@@ -73,7 +118,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rails>, [">= 0"])
     s.add_dependency(%q<devise>, [">= 0"])
     s.add_dependency(%q<rotp>, [">= 0"])
-    s.add_dependency(%q<shoulda>, [">= 0"])
+    s.add_dependency(%q<shoulda>, ["~> 2.11.3"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<rcov>, [">= 0"])

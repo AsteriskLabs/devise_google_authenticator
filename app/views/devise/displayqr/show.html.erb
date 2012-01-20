@@ -1,12 +1,12 @@
-<h2>Your QR Code</h2>
+<h2><%= I18n.t('title', {:scope => 'devise.registration'}) %></h2>
 
 <%= google_authenticator_qrcode(resource) %>
 
 <%= form_for(resource, :as => resource_name, :url => [resource_name, :displayqr], :html => { :method => :put }) do |f| %>
 	<%= devise_error_messages! %>
-	<h3>Would you like to enable Google Authenticator?</h3>
-	<p><%= f.label :gauth_enabled, "Google Authenticator Status" %><br />
+	<h3><%= I18n.t('nice_request', {:scope => 'devise.registration'}) %></h3>
+	<p><%= f.label :gauth_enabled, I18n.t('qrstatus', {:scope => 'devise.registration'}) %><br />
 	<%= f.check_box :gauth_enabled %></p>
 	
-	<p><%= f.submit "Continue.." %></p>
+	<p><%= f.submit I18n.t('submit', {:scope => 'devise.registration'}) %></p>
 <% end %>
