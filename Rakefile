@@ -21,6 +21,7 @@ Jeweler::Tasks.new do |gem|
   gem.description = %Q{Devise Google Authenticator Extension, for adding Google's OTP to your Rails apps!}
   gem.email = "xntrik@gmail.com"
   gem.authors = ["Christian Frichot"]
+  gem.files = Dir["{app,config,lib}/**/*"] + %w[LICENSE.txt README.rdoc]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new

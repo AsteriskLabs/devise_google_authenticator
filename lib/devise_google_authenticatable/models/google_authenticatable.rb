@@ -33,18 +33,39 @@ module Devise # :nodoc:
           self.gauth_tmp
         end
 
+                def validate_token(token)
+          if self.gauth_tmp_datetime < self.class.ga_timeout.ago
+            return false
+          else
+
+            valid_vals = []
+            valid_vals << ROTP::TOTP.new(self.get_qr).at(Time.now)
+            (1..self.class.ga_timedrift).each do |cc|
+              valid_vals << ROTP::TOTP.new(self.get_qr).at(Time.now.ago(30*cc))
+              valid_vals << ROTP::TOTP.new(self.get_qr).at(Time.now.in(30*cc))
+            end
+            
+            if valid_vals.include?(token.to_i)
+              return true
+            else
+              return false
+            end
+          end
+        end
+
         private
 
         def assign_auth_secret
           self.gauth_secret = ROTP::Base32.random_base32
         end
-        
+
       end
 
       module ClassMethods # :nodoc:
         def find_by_gauth_tmp(gauth_tmp)
           find(:first, :conditions => {:gauth_tmp => gauth_tmp})
         end
+        ::Devise::Models.config(self, :ga_timeout, :ga_timedrift)
       end
     end
   end
