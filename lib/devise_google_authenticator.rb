@@ -5,14 +5,18 @@ require 'active_support/ordered_hash'
 require 'active_support/concern'
 require 'devise'
 
+module Devise # :nodoc:
+	mattr_accessor :ga_timeout
+	@@ga_timeout = 3.minutes
+
+	mattr_accessor :ga_timedrift
+	@@ga_timedrift = 3
+end
+
 # a security extension for devise
 module DeviseGoogleAuthenticator
   autoload :Schema, 'devise_google_authenticatable/schema'
   autoload :Patches, 'devise_google_authenticatable/patches'
-  
-#  module Controllers # :nodoc:
-#    autoload :Helpers, 'devise_google_authenticatable/controllers/helpers'
-#  end
 end
 
 

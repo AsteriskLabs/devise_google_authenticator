@@ -9,38 +9,14 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Christian Frichot"]
-  s.date = "2011-11-22"
+  s.date = "2012-01-22"
   s.description = "Devise Google Authenticator Extension, for adding Google's OTP to your Rails apps!"
   s.email = "xntrik@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
   ]
-  s.files = [
-    ".document",
-    "Gemfile",
-    "Gemfile.lock",
-    "LICENSE.txt",
-    "README.rdoc",
-    "Rakefile",
-    "VERSION",
-    "app/controllers/devise/checkga_controller.rb",
-    "app/controllers/devise/displayqr_controller.rb",
-    "app/views/devise/checkga/show.html.erb",
-    "app/views/devise/displayqr/show.html.erb",
-    "devise_google_authenticator.gemspec",
-    "lib/devise_google_authenticatable/controllers/helpers.rb",
-    "lib/devise_google_authenticatable/hooks/google_authenticatable.rb",
-    "lib/devise_google_authenticatable/models/google_authenticatable.rb",
-    "lib/devise_google_authenticatable/orm/active_record.rb",
-    "lib/devise_google_authenticatable/patches.rb",
-    "lib/devise_google_authenticatable/patches/check_ga.rb",
-    "lib/devise_google_authenticatable/patches/display_qr.rb",
-    "lib/devise_google_authenticatable/rails.rb",
-    "lib/devise_google_authenticatable/routes.rb",
-    "lib/devise_google_authenticatable/schema.rb",
-    "lib/devise_google_authenticator.rb"
-  ]
+  s.files = Dir["{app,config,lib}/**/*"] + %w[LICENSE.txt README.rdoc]
   s.homepage = "http://github.com/AsteriskLabs/devise_google_authenticator"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]

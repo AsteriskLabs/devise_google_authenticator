@@ -26,5 +26,13 @@ module DeviseGoogleAuthenticator
       apply_devise_schema :gauth_enabled, Integer, {:default => 0}
     end
 
+    def gauth_tmp
+        apply_devise_schema :gauth_tmp, String
+    end
+
+    def gauth_tmp_datetime
+        apply_devise_schema :gauth_tmp_datetime, Datetime
+    end
+
   end
 end
