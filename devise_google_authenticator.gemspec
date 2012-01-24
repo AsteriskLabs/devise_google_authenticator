@@ -9,14 +9,38 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Christian Frichot"]
-  s.date = "2012-01-22"
+  s.date = "2012-01-23"
   s.description = "Devise Google Authenticator Extension, for adding Google's OTP to your Rails apps!"
   s.email = "xntrik@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
   ]
-  s.files = Dir["{app,config,lib}/**/*"] + %w[LICENSE.txt README.rdoc]
+  s.files = [
+    "LICENSE.txt",
+    "README.rdoc",
+    "app/controllers/devise/checkga_controller.rb",
+    "app/controllers/devise/displayqr_controller.rb",
+    "app/views/devise/checkga/show.html.erb",
+    "app/views/devise/displayqr/show.html.erb",
+    "config/locales/en.yml",
+    "lib/devise_google_authenticatable/controllers/helpers.rb",
+    "lib/devise_google_authenticatable/hooks/google_authenticatable.rb",
+    "lib/devise_google_authenticatable/models/google_authenticatable.rb",
+    "lib/devise_google_authenticatable/orm/active_record.rb",
+    "lib/devise_google_authenticatable/patches.rb",
+    "lib/devise_google_authenticatable/patches/check_ga.rb",
+    "lib/devise_google_authenticatable/patches/display_qr.rb",
+    "lib/devise_google_authenticatable/rails.rb",
+    "lib/devise_google_authenticatable/routes.rb",
+    "lib/devise_google_authenticatable/schema.rb",
+    "lib/devise_google_authenticator.rb",
+    "lib/generators/active_record/devise_google_authenticator_generator.rb",
+    "lib/generators/active_record/templates/migration.rb",
+    "lib/generators/devise_google_authenticator/devise_google_authenticator_generator.rb",
+    "lib/generators/devise_google_authenticator/install_generator.rb",
+    "lib/generators/devise_google_authenticator/views_generator.rb"
+  ]
   s.homepage = "http://github.com/AsteriskLabs/devise_google_authenticator"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
@@ -27,30 +51,45 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<activesupport>, ["= 3.2.0"])
       s.add_runtime_dependency(%q<rails>, [">= 0"])
       s.add_runtime_dependency(%q<devise>, [">= 0"])
       s.add_runtime_dependency(%q<rotp>, [">= 0"])
+      s.add_runtime_dependency(%q<devise_google_authenticator>, [">= 0"])
       s.add_development_dependency(%q<shoulda>, ["~> 2.11.3"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
-      s.add_development_dependency(%q<rcov>, [">= 0"])
+      s.add_development_dependency(%q<shoulda>, ["~> 2.11.3"])
+      s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
+      s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
+      s.add_development_dependency(%q<simplecov>, [">= 0"])
     else
+      s.add_dependency(%q<activesupport>, ["= 3.2.0"])
       s.add_dependency(%q<rails>, [">= 0"])
       s.add_dependency(%q<devise>, [">= 0"])
       s.add_dependency(%q<rotp>, [">= 0"])
+      s.add_dependency(%q<devise_google_authenticator>, [">= 0"])
       s.add_dependency(%q<shoulda>, ["~> 2.11.3"])
       s.add_dependency(%q<bundler>, ["~> 1.0.0"])
       s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
-      s.add_dependency(%q<rcov>, [">= 0"])
+      s.add_dependency(%q<shoulda>, ["~> 2.11.3"])
+      s.add_dependency(%q<bundler>, ["~> 1.0.0"])
+      s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
+      s.add_dependency(%q<simplecov>, [">= 0"])
     end
   else
+    s.add_dependency(%q<activesupport>, ["= 3.2.0"])
     s.add_dependency(%q<rails>, [">= 0"])
     s.add_dependency(%q<devise>, [">= 0"])
     s.add_dependency(%q<rotp>, [">= 0"])
+    s.add_dependency(%q<devise_google_authenticator>, [">= 0"])
     s.add_dependency(%q<shoulda>, ["~> 2.11.3"])
     s.add_dependency(%q<bundler>, ["~> 1.0.0"])
     s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
-    s.add_dependency(%q<rcov>, [">= 0"])
+    s.add_dependency(%q<shoulda>, ["~> 2.11.3"])
+    s.add_dependency(%q<bundler>, ["~> 1.0.0"])
+    s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
+    s.add_dependency(%q<simplecov>, [">= 0"])
   end
 end
 

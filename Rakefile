@@ -29,19 +29,19 @@ Jeweler::RubygemsDotOrgTasks.new
 require 'rake/testtask'
 Rake::TestTask.new(:test) do |test|
   test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
+  test.pattern = 'test/**/*_test.rb'
   test.verbose = true
 end
 
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-  test.rcov_opts << '--exclude "gems/*"'
-end
+# require 'rcov/rcovtask'
+# Rcov::RcovTask.new do |test|
+#   test.libs << 'test'
+#   test.pattern = 'test/**/test_*.rb'
+#   test.verbose = true
+#   test.rcov_opts << '--exclude "gems/*"'
+# end
 
-task :default => :test
+task :default => :tests
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
@@ -51,4 +51,12 @@ Rake::RDocTask.new do |rdoc|
   rdoc.title = "devise_google_authenticator #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
+desc 'Run Devise tests for all ORMs.'
+task :tests do
+  Dir[File.join(File.dirname(__FILE__), 'test', 'orm', '*.rb')].each do |file|
+    orm = File.basename(file).split(".").first
+    system "rake test DEVISE_ORM=#{orm}"
+  end
 end
