@@ -29,6 +29,7 @@ module Devise # :nodoc:
         end
 
         def validate_token(token)
+          return false if self.gauth_tmp_datetime.nil?
           if self.gauth_tmp_datetime < self.class.ga_timeout.ago
             return false
           else

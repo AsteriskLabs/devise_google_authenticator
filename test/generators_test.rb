@@ -8,6 +8,13 @@ class GeneratorsTest < ActiveSupport::TestCase
 
   test "rails g should include the 3 generators" do
     @output = `cd #{RAILS_APP_PATH} && rails g`
-    assert @output.match(%r|DeviseInvitable:\n  devise_invitable\n  devise_invitable:install\n  devise_invitable:views|)
+    assert @output.match(%r|DeviseGoogleAuthenticator:\n  devise_google_authenticator\n  devise_google_authenticator:install\n  devise_google_authenticator:views|)
   end
+
+  test "rails g devise_google_authenticator:install" do
+    @output = `cd #{RAILS_APP_PATH} && rails g devise_google_authenticator:install -p`
+    assert @output.match(%r^(inject|insert).+config/initializers/devise\.rb\n^)
+    assert @output.match(%r|create.+config/locales/devise\.google_authenticator\.en\.yml\n|)
+  end
+
 end
