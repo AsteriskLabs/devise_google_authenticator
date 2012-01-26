@@ -1,5 +1,4 @@
 require 'rotp'
-#require 'devise_google_authenticatable/hooks/google_authenticatable'
 
 module Devise # :nodoc:
   module Models # :nodoc:
@@ -23,17 +22,13 @@ module Devise # :nodoc:
         def set_gauth_enabled(param)
           self.update_without_password(param)
         end
-        
-        def login_phase_one
-          return "yep"
-        end
 
         def assign_tmp
           self.update_attributes(:gauth_tmp => ROTP::Base32.random_base32, :gauth_tmp_datetime => DateTime.now)
           self.gauth_tmp
         end
 
-                def validate_token(token)
+        def validate_token(token)
           if self.gauth_tmp_datetime < self.class.ga_timeout.ago
             return false
           else

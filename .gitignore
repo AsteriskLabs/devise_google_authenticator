@@ -46,3 +46,8 @@ pkg
 
 # For rubinius:
 #*.rbc
+
+# For Project
+test/rails_app/log
+test/rails_app/db/*.sqlite3
+Gemfile.lock
