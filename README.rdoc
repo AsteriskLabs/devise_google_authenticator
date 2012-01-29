@@ -14,6 +14,8 @@ Add the gem to your Gemfile (don't forget devise too):
 * gem 'devise', '~> 1.5.3'
 * gem 'devise_google_authenticator', '0.3.0'
 
+Don't forget to "bundle install"
+
 === Automatic Installation (Lets assume this is a bare bones app)
 
 Run the following generator to add the necessary configuration options to Devise's config file:
