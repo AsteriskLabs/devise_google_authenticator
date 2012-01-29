@@ -6,13 +6,14 @@ This is a devise[https://github.com/plataformatec/devise] extension to allow you
 * Version 0.1 - initial release, just to push it up, is still very early and requires a bit work
 * Version 0.2 - tidied up some of the code - changed the references to AsteriskLabs
 * Version 0.3 - first working version! With working generators, tests, and doesnt require changes to Devise's Sign In view
+* Version 0.3.1 - Slight updated in the dependencies.
 
 == Installation
 
 Add the gem to your Gemfile (don't forget devise too):
 
 * gem 'devise', '~> 1.5.3'
-* gem 'devise_google_authenticator', '0.3.0'
+* gem 'devise_google_authenticator', '0.3.1'
 
 Don't forget to "bundle install"
 
