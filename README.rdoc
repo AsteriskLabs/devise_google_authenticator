@@ -11,22 +11,22 @@ This is a devise[https://github.com/plataformatec/devise] extension to allow you
 
 Add the gem to your Gemfile (don't forget devise too):
 
-	gem 'devise', '~> 1.5.3'
-	gem 'devise_google_authenticator', '0.3.0'
+* gem 'devise', '~> 1.5.3'
+* gem 'devise_google_authenticator', '0.3.0'
 
 === Automatic Installation (Lets assume this is a bare bones app)
 
 Run the following generator to add the necessary configuration options to Devise's config file:
 
-	rails g devise_google_authenticator:install
+* rails g devise_google_authenticator:install
 
 After you've created your Devise user models (which is usually done with a "rails g devise MODEL"), set up your Google Authenticator additions:
 
-	rails g devise_google_authenticator MODEL
+* rails g devise_google_authenticator MODEL
 
 Don't forget to migrate:
 
-	rake db:migrate
+* rake db:migrate
 
 == Configuration Options
 
@@ -39,7 +39,7 @@ The install generator adds some options to the end of your Devise config file (c
 
 If you want to customise your views (which you likely will want to, as they're pretty ugly right now), you can use the generator:
 
-	rails g devise_google_authenticator:views
+* rails g devise_google_authenticator:views
 
 == Usage
 
