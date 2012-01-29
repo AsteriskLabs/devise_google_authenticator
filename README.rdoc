@@ -77,6 +77,6 @@ This extension would not exist without the following other projects and associat
 
 == Copyright
 
-Copyright (c) 2011 Christian Frichot. See LICENSE.txt for
+Copyright (c) 2012 Christian Frichot. See LICENSE.txt for
 further details.
 
