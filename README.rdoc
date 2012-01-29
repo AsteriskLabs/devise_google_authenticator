@@ -4,14 +4,63 @@ This is a devise[https://github.com/plataformatec/devise] extension to allow you
 
 == Changes
 * Version 0.1 - initial release, just to push it up, is still very early and requires a bit work
+* Version 0.2 - tidied up some of the code - changed the references to AsteriskLabs
+* Version 0.3 - first working version! With working generators, tests, and doesnt require changes to Devise's Sign In view
+
+== Installation
+
+Add the gem to your Gemfile (don't forget devise too):
+
+	gem 'devise', '~> 1.5.3'
+	gem 'devise_google_authenticator', '0.3.0'
+
+=== Automatic Installation (Lets assume this is a bare bones app)
+
+Run the following generator to add the necessary configuration options to Devise's config file:
+
+	rails g devise_google_authenticator:install
+
+After you've created your Devise user models (which is usually done with a "rails g devise MODEL"), set up your Google Authenticator additions:
+
+	rails g devise_google_authenticator MODEL
+
+Don't forget to migrate:
+
+	rake db:migrate
+
+== Configuration Options
+
+The install generator adds some options to the end of your Devise config file (config/initializers/devise.rb)
+
+* config.ga_timeout - how long should the user be able to authenticate with their Google Authenticator token
+* config.ga_timedrift - a multiplier which provides for drift between a user's clock (and therefore their OTP) and the system clock. This should be fine at 3.
+
+== Custom Views
+
+If you want to customise your views (which you likely will want to, as they're pretty ugly right now), you can use the generator:
+
+	rails g devise_google_authenticator:views
 
 == Usage
-* After getting devise working with your rails app, add a 'require devise_google_authenticator' line.
-* Modify your user model (through a migration) and add t.gauth_secret and t.gauth_enabled
-* Modify your user model (through its model file) and include :google_authenticatable to your 'devise' line
-* Modify your user model (through its model file) and include :gauth_enabled into your model's attr_accessible
-* Ensure you've installed devise's views, and modify the sessions .. #CF TODO
-* Migrate your db
+
+With this extension enabled, the following is expected behaviour:
+
+* When a user registers, they are forwarded onto the Display QR page. This allows them to add their new "token" to their mobile device, and enable, or disable, the functionality.
+* If users can't self-register, they're still able to visit this page by visiting /MODEL/displayqr (eg: /users/displayqr).
+* If the function is enabled (for that user), when they sign in, they'll be prompted for their password (as per normal), but then redirected into the Check QR page. They have to enter their token (from their device) to then successfully authenticate.
+
+== I18n
+
+The install generator also installs an english copy of a Devise Google Authenticator i18n file. This can be modified (or used to create other language versions) and is located at: config/locales/devise.google_authenticator.en.yml
+
+== Thanks (and unknown contributors)
+
+This extension would not exist without the following other projects and associated authors (Whom I have turned to for inspiration and definitely have helped contributing by providing awesome Devise extensions. A lot of this code has been refactored from various sources, in particular these - in particular Sergio and Devise_invitable for his excellent unit test code):
+
+* Devise (José Valim, Carlos Antônio da Silva, Rodrigo Flores) https://github.com/plataformatec/devise
+* Devise_invitable (Sergio Cambra) https://github.com/scambra/devise_invitable
+* Devise_openid_authenticatable (Nat Budin) https://github.com/nbudin/devise_openid_authenticatable
+* Devise_security_extension (Team Phatworx, Marco Scholl, Alexander Dreher) https://github.com/phatworx/devise_security_extension
 
 
 == Contributing to devise_google_authenticator
