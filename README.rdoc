@@ -7,15 +7,32 @@ This is a devise[https://github.com/plataformatec/devise] extension to allow you
 * Version 0.2 - tidied up some of the code - changed the references to AsteriskLabs
 * Version 0.3 - first working version! With working generators, tests, and doesnt require changes to Devise's Sign In view
 * Version 0.3.1 - Slight updated in the dependencies.
+* Version 0.3.2 - Updated to include support for Devise 2.0.0 and above (no longer supports 1.5.3 or lower), you'll need version 0.3.1 to use older Devise
 
 == Installation
 
 Add the gem to your Gemfile (don't forget devise too):
 
-* gem 'devise', '~> 1.5.3'
-* gem 'devise_google_authenticator', '0.3.1'
+* gem 'devise'
+* gem 'devise_google_authenticator', '0.3.2'
 
 Don't forget to "bundle install"
+
+=== Devise Installation (In case you haven't done it)
+
+To setup Devise, you need to do the following (but refer to https://github.com/plataformatec/devise for more information)
+
+Install Devise:
+* rails g devise:install
+
+Setup the User or Admin model
+* rails g devise MODEL
+
+Configure your app for authorisation, edit your Controller and add this before_filter:
+
+* before_filter :authenticate_user!
+
+Make sure your "root" route is configured in config/routes.rb
 
 === Automatic Installation (Lets assume this is a bare bones app)
 

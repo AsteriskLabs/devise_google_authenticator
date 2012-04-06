@@ -1,11 +1,11 @@
-class Devise::DisplayqrController < ApplicationController
+class Devise::DisplayqrController < DeviseController
   prepend_before_filter :authenticate_scope!, :only => [:show,:update]
   
-  include Devise::Controllers::InternalHelpers
+  include Devise::Controllers::Helpers
   
   def show
     if not resource.nil? and not resource.gauth_secret.nil?
-      render_with_scope :show
+      render :show
     else
       sign_in scope, resource, :bypass => true
       redirect_to stored_location_for(scope) || :root
@@ -19,7 +19,7 @@ class Devise::DisplayqrController < ApplicationController
       sign_in scope, resource, :bypass => true
       redirect_to stored_location_for(scope) || :root
     else
-      render_with_scope :show
+      render :show
     end
   end
     

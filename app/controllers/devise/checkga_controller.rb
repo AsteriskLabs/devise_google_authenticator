@@ -1,13 +1,13 @@
 class Devise::CheckgaController < Devise::SessionsController
   prepend_before_filter :require_no_authentication, :only => [ :show, :update ]
-  include Devise::Controllers::InternalHelpers
+  include Devise::Controllers::Helpers
   
   def show
     @tmpid = params[:id]
     if @tmpid.nil?
       redirect_to :root
     else
-      render_with_scope :show
+      render :show
     end
   end
   
