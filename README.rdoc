@@ -9,13 +9,14 @@ This is a devise[https://github.com/plataformatec/devise] extension to allow you
 * Version 0.3.1 - Slight updated in the dependencies.
 * Version 0.3.2 - Updated to include support for Devise 2.0.0 and above (no longer supports 1.5.3 or lower), you'll need version 0.3.1 to use older Devise
 * Version 0.3.3 - Updated some of the redirect methods to proper align with Devise 2.1.0. Also tidied up some of the test routines to proper replicate Devise 2.1.0
+* Version 0.3.4 - Updated test cases to function properly, and tested working with Devise 2.2 (up to at least Devise 2.2.4)
 
 == Installation
 
 Add the gem to your Gemfile (don't forget devise too):
 
 * gem 'devise'
-* gem 'devise_google_authenticator', '0.3.3'
+* gem 'devise_google_authenticator', '0.3.4'
 
 Don't forget to "bundle install"
 
