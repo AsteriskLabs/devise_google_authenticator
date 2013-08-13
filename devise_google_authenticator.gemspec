@@ -3,9 +3,9 @@ $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 
 Gem::Specification.new do |s|
   s.name = "devise_google_authenticator"
-  s.version = "0.3.5"
+  s.version = "0.3.6"
   s.authors = ["Christian Frichot"]
-  s.date = "2013-07-02"
+  s.date = "2013-08-13"
   s.description = "Devise Google Authenticator Extension, for adding Google's OTP to your Rails apps!"
   s.email = "xntrik@gmail.com"
   s.extra_rdoc_files = [
