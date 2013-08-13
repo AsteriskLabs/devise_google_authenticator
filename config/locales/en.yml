@@ -7,3 +7,6 @@ en:
       nice_request: "Would you like to enable Google Authenticator?"
       qrstatus: "Google Authenticator Status:"
       submit: "Continue..."
+    checkga:
+      user:
+        signed_in: "Signed in successfully from token."
