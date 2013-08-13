@@ -24,7 +24,7 @@ module Devise # :nodoc:
         end
 
         def assign_tmp
-          self.update_attributes(:gauth_tmp => ROTP::Base32.random_base32, :gauth_tmp_datetime => DateTime.now)
+          self.update_attributes(:gauth_tmp => ROTP::Base32.random_base32(32), :gauth_tmp_datetime => DateTime.now)
           self.gauth_tmp
         end
 
@@ -52,7 +52,7 @@ module Devise # :nodoc:
         private
 
         def assign_auth_secret
-          self.gauth_secret = ROTP::Base32.random_base32
+          self.gauth_secret = ROTP::Base32.random_base32(64)
         end
 
       end
