@@ -4,7 +4,7 @@ gemspec
 
 group :test do
   gem 'activerecord', '~> 3.0'
-  gem "sqlite3", "~> 1.3.4"
+  gem "sqlite3", "~> 1.3.5"
   gem "bson_ext", "~> 1.3"
   gem "capybara", "~> 1.1.0"
   gem 'shoulda', '~> 2.11.3'
