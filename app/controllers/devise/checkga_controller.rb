@@ -26,10 +26,12 @@ class Devise::CheckgaController < Devise::SessionsController
           :secure => !(Rails.env.test? || Rails.env.development?)
         }
       else
+        set_flash_message(:error, :error)
         redirect_to :root
       end
 
     else
+      set_flash_message(:error, :error)
       redirect_to :root
     end
   end
