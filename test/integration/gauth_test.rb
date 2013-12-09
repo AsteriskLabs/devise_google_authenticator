@@ -4,6 +4,7 @@ require 'integration_tests_helper'
 class InvitationTest < ActionDispatch::IntegrationTest
   def teardown
     Capybara.reset_sessions!
+    Timecop.return
   end
 
   test 'register new user - confirm that we get a display qr page after registering' do
@@ -91,5 +92,24 @@ class InvitationTest < ActionDispatch::IntegrationTest
     User.ga_timedrift = old_ga_timedrift
 
     assert_equal new_user_session_path, current_path
+  end
+
+  test 'user is not prompted for token again after first login until remembertime is up' do
+    testuser = create_and_signin_gauth_user
+    fill_in 'user_token', :with => ROTP::TOTP.new(testuser.get_qr).at(Time.now)
+    click_button 'Check Token'
+
+    assert_equal root_path, current_path
+
+    visit destroy_user_session_path
+    sign_in_as_user(testuser)
+    assert_equal root_path, current_path
+    visit destroy_user_session_path
+
+    Timecop.travel(1.month.to_i + 1.day.to_i)
+    sign_in_as_user(testuser)
+    assert_equal user_checkga_path, current_path
+
+    Timecop.return
   end
 end

@@ -49,6 +49,10 @@ module Devise # :nodoc:
           end
         end
 
+        def require_token?(cookie)
+          return self.class.ga_remembertime.nil? || cookie.blank? || (Time.now.to_i - cookie) > self.class.ga_remembertime.to_i
+        end
+
         private
 
         def assign_auth_secret
@@ -61,7 +65,7 @@ module Devise # :nodoc:
         def find_by_gauth_tmp(gauth_tmp)
           find(:first, :conditions => {:gauth_tmp => gauth_tmp})
         end
-        ::Devise::Models.config(self, :ga_timeout, :ga_timedrift)
+        ::Devise::Models.config(self, :ga_timeout, :ga_timedrift, :ga_remembertime)
       end
     end
   end
