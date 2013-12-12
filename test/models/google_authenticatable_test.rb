@@ -62,9 +62,11 @@ class GoogleAuthenticatableTest < ActiveSupport::TestCase
 	end
 
 	test 'requiring token after remembertime' do
-		assert User.find(1).require_token?(nil)
-		assert User.find(1).require_token?(2.months.ago.to_i)
-		assert !User.find(1).require_token?(1.day.ago.to_i)
+		u = User.find(1)
+		assert u.require_token?(nil)
+		assert u.require_token?(u.email + "," + 2.months.ago.to_i.to_s)
+		assert !u.require_token?(u.email + "," + 1.day.ago.to_i.to_s)
+		assert u.require_token?("testxx@test.com" + "," + 1.day.ago.to_i.to_s)
 	end
 
 end

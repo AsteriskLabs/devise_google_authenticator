@@ -50,7 +50,16 @@ module Devise # :nodoc:
         end
 
         def require_token?(cookie)
-          return self.class.ga_remembertime.nil? || cookie.blank? || (Time.now.to_i - cookie) > self.class.ga_remembertime.to_i
+          if self.class.ga_remembertime.nil? || cookie.blank?
+            return true
+          end
+          array = cookie.to_s.split ','
+          if array.count != 2
+            return true
+          end
+          last_logged_in_email = array[0]
+          last_logged_in_time = array[1].to_i
+          return last_logged_in_email != self.email || (Time.now.to_i - last_logged_in_time) > self.class.ga_remembertime.to_i
         end
 
         private

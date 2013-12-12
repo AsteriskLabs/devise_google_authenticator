@@ -22,7 +22,7 @@ class Devise::CheckgaController < Devise::SessionsController
         respond_with resource, :location => after_sign_in_path_for(resource)
 
         cookies.signed[:gauth] = {
-          :value => Time.now.to_i,
+          :value => resource.email << "," << Time.now.to_i.to_s,
           :secure => !(Rails.env.test? || Rails.env.development?)
         }
       else
