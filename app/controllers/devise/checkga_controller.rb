@@ -23,7 +23,8 @@ class Devise::CheckgaController < Devise::SessionsController
 
         cookies.signed[:gauth] = {
           :value => resource.email << "," << Time.now.to_i.to_s,
-          :secure => !(Rails.env.test? || Rails.env.development?)
+          :secure => !(Rails.env.test? || Rails.env.development?),
+          :expires => (resource.class.ga_remembertime + 1.days).from_now
         }
       else
         set_flash_message(:error, :error)
