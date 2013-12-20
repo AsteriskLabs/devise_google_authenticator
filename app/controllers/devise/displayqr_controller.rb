@@ -15,7 +15,7 @@ class Devise::DisplayqrController < DeviseController
   def update
     tmp = params[resource_name]
     if resource.set_gauth_enabled(params[resource_name])
-      set_flash_message :notice, "Status Updated!"
+      set_flash_message :notice, :status
       sign_in scope, resource, :bypass => true
       redirect_to stored_location_for(scope) || :root
     else

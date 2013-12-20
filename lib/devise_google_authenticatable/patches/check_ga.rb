@@ -11,7 +11,7 @@ module DeviseGoogleAuthenticator::Patches
 
         resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
 
-        if resource.respond_to?(:get_qr) and resource.gauth_enabled.to_i != 0 #Therefore we can quiz for a QR
+        if resource.respond_to?(:get_qr) and resource.gauth_enabled.to_i != 0 and resource.require_token?(cookies.signed[:gauth]) #Therefore we can quiz for a QR
           tmpid = resource.assign_tmp #assign a temporary key and fetch it
           warden.logout #log the user out
 
@@ -25,7 +25,6 @@ module DeviseGoogleAuthenticator::Patches
         end
 
       end
-      
     end
   end
 end
