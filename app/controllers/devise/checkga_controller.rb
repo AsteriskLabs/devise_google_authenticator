@@ -23,11 +23,13 @@ class Devise::CheckgaController < Devise::SessionsController
         sign_in(resource_name,resource)
         respond_with resource, :location => after_sign_in_path_for(resource)
 
-        cookies.signed[:gauth] = {
-          :value => resource.email << "," << Time.now.to_i.to_s,
-          :secure => !(Rails.env.test? || Rails.env.development?),
-          :expires => (resource.class.ga_remembertime + 1.days).from_now
-        }
+        if not resource.class.ga_remembertime.nil? 
+          cookies.signed[:gauth] = {
+            :value => resource.email << "," << Time.now.to_i.to_s,
+            :secure => !(Rails.env.test? || Rails.env.development?),
+            :expires => (resource.class.ga_remembertime + 1.days).from_now
+          }
+        end
       else
         set_flash_message(:error, :error)
         redirect_to :root
