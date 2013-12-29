@@ -70,6 +70,7 @@ The install generator adds some options to the end of your Devise config file (c
 
 * config.ga_timeout - how long should the user be able to authenticate with their Google Authenticator token
 * config.ga_timedrift - a multiplier which provides for drift between a user's clock (and therefore their OTP) and the system clock. This should be fine at 3.
+* config.ga_remembertime - how long to remember the token for before requiring another. By default this is 1 month. To disable this setting change it to nil.
 
 == Custom Views
 
@@ -84,6 +85,7 @@ With this extension enabled, the following is expected behaviour:
 * When a user registers, they are forwarded onto the Display QR page. This allows them to add their new "token" to their mobile device, and enable, or disable, the functionality.
 * If users can't self-register, they're still able to visit this page by visiting /MODEL/displayqr (eg: /users/displayqr).
 * If the function is enabled (for that user), when they sign in, they'll be prompted for their password (as per normal), but then redirected into the Check QR page. They have to enter their token (from their device) to then successfully authenticate.
+* If configured (by default to 1 month), the user will only be prompted for the token every 1 month.
 
 == I18n
 
@@ -97,6 +99,8 @@ This extension would not exist without the following other projects and associat
 * Devise_invitable (Sergio Cambra) https://github.com/scambra/devise_invitable
 * Devise_openid_authenticatable (Nat Budin) https://github.com/nbudin/devise_openid_authenticatable
 * Devise_security_extension (Team Phatworx, Marco Scholl, Alexander Dreher) https://github.com/phatworx/devise_security_extension
+* Ronald Arias https://github.com/ronald05arias
+* Sunny Ng https://github.com/blahblahblah-
 
 
 == Contributing to devise_google_authenticator
