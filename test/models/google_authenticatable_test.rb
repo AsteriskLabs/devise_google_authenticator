@@ -61,4 +61,12 @@ class GoogleAuthenticatableTest < ActiveSupport::TestCase
 		assert User.find(1).validate_token(ROTP::TOTP.new(User.find(1).get_qr).at(Time.now))
 	end
 
+	test 'requiring token after remembertime' do
+		u = User.find(1)
+		assert u.require_token?(nil)
+		assert u.require_token?(u.email + "," + 2.months.ago.to_i.to_s)
+		assert !u.require_token?(u.email + "," + 1.day.ago.to_i.to_s)
+		assert u.require_token?("testxx@test.com" + "," + 1.day.ago.to_i.to_s)
+	end
+
 end
