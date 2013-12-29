@@ -16,7 +16,7 @@ require "devise_google_authenticator"
 
 module RailsApp
   class Application < Rails::Application
-    config.filter_parameters << :password
+    #config.filter_parameters << :password
 
   end
 end

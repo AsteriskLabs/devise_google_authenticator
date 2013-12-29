@@ -1,5 +1,5 @@
 <h2><%= I18n.t('title', {:scope => 'devise.registration'}) %></h2>
-ALSKDJALSKDJASLKDJ
+
 <%= google_authenticator_qrcode(resource) %>
 
 <%= form_for(resource, :as => resource_name, :url => [resource_name, :displayqr], :html => { :method => :put }) do |f| %>

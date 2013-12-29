@@ -18,15 +18,17 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.summary = "Devise Google Authenticator Extension"
 
-  s.required_ruby_version = '>= 1.8.6'
-  s.required_rubygems_version = '>= 1.3.6'
+  s.required_ruby_version = '>= 1.9.2'
+  s.required_rubygems_version = '>= 2.1.0'
 
   s.add_development_dependency('bundler', '~> 1.3.0')
 
   {
     'railties' => '>= 3.0',
-    'actionmailer' => '>= 3.0',
-    'devise' => '>= 2.2.0',
+    # removed the following to try and get past this bundle update not finding compatible versions for gem issue
+    # 'actionmailer' => '>= 3.0', 
+    'actionmailer' => '>= 3.2.12',
+    'devise' => '>= 3.2.0',
     'rotp'   => '~> 1.4.0'
   }.each do |lib, version|
     s.add_runtime_dependency(lib, *version)
