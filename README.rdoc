@@ -12,13 +12,14 @@ This is a devise[https://github.com/plataformatec/devise] extension to allow you
 * Version 0.3.4 - Updated test cases to function properly, and tested working with Devise 2.2 (up to at least Devise 2.2.4)
 * Version 0.3.5 - Updated README for Rails apps with existing users. (Thanks Jon Collier)
 * Version 0.3.6 - Slight updates - increased key size, more open gemspec, updated en.yml. (Thanks Michael Guymon)
+* Version 0.3.7 - Support for current Devise (3.2.0) and Rails4 (Thanks https://github.com/ronald05arias) - integration test still broke - need to address this
 
 == Installation
 
 Add the gem to your Gemfile (don't forget devise too):
 
 * gem 'devise'
-* gem 'devise_google_authenticator', '0.3.6'
+* gem 'devise_google_authenticator', '0.3.7'
 
 Don't forget to "bundle install"
 
