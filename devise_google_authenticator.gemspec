@@ -21,8 +21,6 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.9.2'
   s.required_rubygems_version = '>= 2.1.0'
 
-  s.add_development_dependency('bundler', '~> 1.3.0')
-
   {
     'railties' => '>= 3.0',
     # removed the following to try and get past this bundle update not finding compatible versions for gem issue
