@@ -15,19 +15,20 @@ This is a devise[https://github.com/plataformatec/devise] extension to allow you
 * Version 0.3.7 - Support for current Devise (3.2.0) and Rails4 (Thanks https://github.com/ronald05arias) - integration test still broke - need to address this
 * Version 0.3.8 - Support for remembering the token authentication. (i.e. don't request the token for a configurable amount of time Thanks https://github.com/blahblahblah-) - and seriously, I'm going to try and refactor all the integration tests with Rspec.
 * Version 0.3.9 - Merging fix from zhenyuchen (deprecated ActiveRecord query grammar) - also, re-tested against Rails 4.0.4 and Devise 3.2.3
+* Version 0.3.10 - Added support for Mongoid ORM in addition to ActiveRecord. (Still no appropriate testing for, but I've run this on vanilla Rails 4.0.4 and Devise 3.2.3 apps)
 
 == Installation
 
 Add the gem to your Gemfile (don't forget devise too):
 
 * gem 'devise'
-* gem 'devise_google_authenticator', '0.3.9'
+* gem 'devise_google_authenticator', '0.3.10'
 
 Don't forget to "bundle install"
 
 === Devise Installation (In case you haven't done it)
 
-To setup Devise, you need to do the following (but refer to https://github.com/plataformatec/devise for more information)
+Before you can setup Devise Google Authenticator you need to setup Devise first, you need to do the following (but refer to https://github.com/plataformatec/devise for more information)
 
 Install Devise:
 * rails g devise:install
@@ -51,7 +52,7 @@ After you've created your Devise user models (which is usually done with a "rail
 
 * rails g devise_google_authenticator MODEL
 
-Don't forget to migrate:
+Don't forget to migrate if you're NOT using Mongoid as your database ORM, Mongoid installations will have appropriate fields added to the model after the command above:
 
 * rake db:migrate
 

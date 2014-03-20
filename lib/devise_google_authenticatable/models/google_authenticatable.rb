@@ -49,6 +49,20 @@ module Devise # :nodoc:
           end
         end
 
+        def gauth_enabled?
+          # Active_record seems to handle determining the status better this way
+          if self.gauth_enabled.respond_to?("to_i")
+            if self.gauth_enabled.to_i != 0
+              return true
+            else
+              return false
+            end
+          # Mongoid does NOT have a .to_i for the Boolean return value, hence, we can just return it
+          else
+            return self.gauth_enabled
+          end
+        end
+
         def require_token?(cookie)
           if self.class.ga_remembertime.nil? || cookie.blank?
             return true
