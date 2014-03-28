@@ -15,7 +15,9 @@ class ActiveSupport::TestCase
   end
 
   def new_user(attributes={})
-    User.new(valid_attributes(attributes)).save
+    user = User.new(valid_attributes(attributes))
+    user.save
+    user
   end
 
 end
