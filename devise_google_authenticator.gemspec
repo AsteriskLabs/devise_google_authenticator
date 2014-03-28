@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 
 Gem::Specification.new do |s|
@@ -20,8 +19,6 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 1.9.2'
   s.required_rubygems_version = '>= 2.1.0'
-
-  s.add_development_dependency('bundler', '~> 1.3.0')
 
   {
     'railties' => '>= 3.0',
