@@ -2,27 +2,12 @@
 
 This is a devise[https://github.com/plataformatec/devise] extension to allow your app to utilise Google Authenticator[http://code.google.com/p/google-authenticator/] for Time-based One Time Passwords (TOTP).
 
-== Changes
-* Version 0.1 - initial release, just to push it up, is still very early and requires a bit work
-* Version 0.2 - tidied up some of the code - changed the references to AsteriskLabs
-* Version 0.3 - first working version! With working generators, tests, and doesnt require changes to Devise's Sign In view
-* Version 0.3.1 - Slight updated in the dependencies.
-* Version 0.3.2 - Updated to include support for Devise 2.0.0 and above (no longer supports 1.5.3 or lower), you'll need version 0.3.1 to use older Devise
-* Version 0.3.3 - Updated some of the redirect methods to proper align with Devise 2.1.0. Also tidied up some of the test routines to proper replicate Devise 2.1.0
-* Version 0.3.4 - Updated test cases to function properly, and tested working with Devise 2.2 (up to at least Devise 2.2.4)
-* Version 0.3.5 - Updated README for Rails apps with existing users. (Thanks Jon Collier)
-* Version 0.3.6 - Slight updates - increased key size, more open gemspec, updated en.yml. (Thanks Michael Guymon)
-* Version 0.3.7 - Support for current Devise (3.2.0) and Rails4 (Thanks https://github.com/ronald05arias) - integration test still broke - need to address this
-* Version 0.3.8 - Support for remembering the token authentication. (i.e. don't request the token for a configurable amount of time Thanks https://github.com/blahblahblah-) - and seriously, I'm going to try and refactor all the integration tests with Rspec.
-* Version 0.3.9 - Merging fix from zhenyuchen (deprecated ActiveRecord query grammar) - also, re-tested against Rails 4.0.4 and Devise 3.2.3
-* Version 0.3.10 - Added support for Mongoid ORM in addition to ActiveRecord. (Still no appropriate testing for, but I've run this on vanilla Rails 4.0.4 and Devise 3.2.3 apps)
-
 == Installation
 
 Add the gem to your Gemfile (don't forget devise too):
 
 * gem 'devise'
-* gem 'devise_google_authenticator', '0.3.10'
+* gem 'devise_google_authenticator', '0.3.11'
 
 Don't forget to "bundle install"
 
@@ -92,6 +77,22 @@ With this extension enabled, the following is expected behaviour:
 == I18n
 
 The install generator also installs an english copy of a Devise Google Authenticator i18n file. This can be modified (or used to create other language versions) and is located at: config/locales/devise.google_authenticator.en.yml
+
+== Changes
+* Version 0.3.11 - Fixed a bug where if the Devise module was included within something else, such as Active Admin, rewriting back to the CheckGA functionality was broken. This update addresses https://github.com/AsteriskLabs/devise_google_authenticator/issues/7
+* Version 0.3.10 - Added support for Mongoid ORM in addition to ActiveRecord. (Still no appropriate testing for, but I've run this on vanilla Rails 4.0.4 and Devise 3.2.3 apps)
+* Version 0.3.9 - Merging fix from zhenyuchen (deprecated ActiveRecord query grammar) - also, re-tested against Rails 4.0.4 and Devise 3.2.3
+* Version 0.3.8 - Support for remembering the token authentication. (i.e. don't request the token for a configurable amount of time Thanks https://github.com/blahblahblah-) - and seriously, I'm going to try and refactor all the integration tests with Rspec.
+* Version 0.3.7 - Support for current Devise (3.2.0) and Rails4 (Thanks https://github.com/ronald05arias) - integration test still broke - need to address this
+* Version 0.3.6 - Slight updates - increased key size, more open gemspec, updated en.yml. (Thanks Michael Guymon)
+* Version 0.3.5 - Updated README for Rails apps with existing users. (Thanks Jon Collier)
+* Version 0.3.4 - Updated test cases to function properly, and tested working with Devise 2.2 (up to at least Devise 2.2.4)
+* Version 0.3.3 - Updated some of the redirect methods to proper align with Devise 2.1.0. Also tidied up some of the test routines to proper replicate Devise 2.1.0
+* Version 0.3.2 - Updated to include support for Devise 2.0.0 and above (no longer supports 1.5.3 or lower), you'll need version 0.3.1 to use older Devise
+* Version 0.3.1 - Slight updated in the dependencies.
+* Version 0.3 - first working version! With working generators, tests, and doesnt require changes to Devise's Sign In view
+* Version 0.2 - tidied up some of the code - changed the references to AsteriskLabs
+* Version 0.1 - initial release, just to push it up, is still very early and requires a bit work
 
 == Thanks (and unknown contributors)
 
