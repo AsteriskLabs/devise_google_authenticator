@@ -2,6 +2,10 @@
 
 <%= google_authenticator_qrcode(resource) %>
 
+<%= form_for(resource, :as => resource_name, :url => [:refresh, resource_name, :displayqr], :html => {:method => :post}) do |f|%>
+	<p><%= f.submit I18n.t('newtoken', {:scope => 'devise.registration'}) %></p>
+<% end %>
+
 <%= form_for(resource, :as => resource_name, :url => [resource_name, :displayqr], :html => { :method => :put }) do |f| %>
 	<%= devise_error_messages! %>
 	<h3><%= I18n.t('nice_request', {:scope => 'devise.registration'}) %></h3>
@@ -10,3 +14,4 @@
 	
 	<p><%= f.submit I18n.t('submit', {:scope => 'devise.registration'}) %></p>
 <% end %>
+

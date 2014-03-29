@@ -7,6 +7,7 @@ en:
       nice_request: "Would you like to enable Google Authenticator?"
       qrstatus: "Google Authenticator Status:"
       submit: "Continue..."
+      newtoken: "Generate new token"
     checkga:
       user:
         signed_in: "Signed in successfully from token."
@@ -14,3 +15,4 @@ en:
     displayqr:
       user:
         status: "User status updated!"
+        newtoken: "You have updated to a new token - make sure you update your Google Authenticator application before continuing!!"

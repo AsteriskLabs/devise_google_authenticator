@@ -1,8 +1,9 @@
 class Devise::DisplayqrController < DeviseController
-  prepend_before_filter :authenticate_scope!, :only => [:show,:update]
+  prepend_before_filter :authenticate_scope!, :only => [:show,:update,:refresh]
 
   include Devise::Controllers::Helpers
 
+  # GET /resource/displayqr
   def show
     if resource.nil? || resource.gauth_secret.nil?
       sign_in scope, resource, :bypass => true
@@ -19,6 +20,18 @@ class Devise::DisplayqrController < DeviseController
       redirect_to stored_location_for(scope) || :root
     else
       render :show
+    end
+  end
+
+  def refresh
+    unless resource.nil?
+      resource.send(:assign_auth_secret)
+      resource.save
+      set_flash_message :notice, :newtoken
+      sign_in scope, resource, :bypass => true
+      redirect_to [resource_name, :displayqr]
+    else
+      redirect_to :root
     end
   end
 

@@ -7,7 +7,7 @@ This is a devise[https://github.com/plataformatec/devise] extension to allow you
 Add the gem to your Gemfile (don't forget devise too):
 
 * gem 'devise'
-* gem 'devise_google_authenticator', '0.3.13'
+* gem 'devise_google_authenticator', '0.3.14'
 
 Don't forget to "bundle install"
 
@@ -79,6 +79,7 @@ With this extension enabled, the following is expected behaviour:
 The install generator also installs an english copy of a Devise Google Authenticator i18n file. This can be modified (or used to create other language versions) and is located at: config/locales/devise.google_authenticator.en.yml
 
 == Changes
+* Version 0.3.14 - Users can now generate a new token if they wish. This is available from the displayqr page.
 * Version 0.3.13 - Merged a feature to allow a qualifier for the Google Authenticator token display. This allows you to specify in your view a qualifier for the name of the OTP when it's enrolled into the Google Authenticator app. Thanks Michael Guymon for the pull.
 * Version 0.3.12 - Re-introduced Warden's after_authentication callback. Thanks Sunny Ng for the pull.
 * Version 0.3.11 - Fixed a bug where if the Devise module was included within something else, such as Active Admin, rewriting back to the CheckGA functionality was broken. This update addresses https://github.com/AsteriskLabs/devise_google_authenticator/issues/7
