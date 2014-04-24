@@ -53,3 +53,4 @@ test/rails_app/db/*.sqlite3
 Gemfile.lock
 .ruby-version
 .ruby-gemset
+.idea
