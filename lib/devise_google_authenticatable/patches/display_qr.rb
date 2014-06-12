@@ -16,7 +16,12 @@ module DeviseGoogleAuthenticator::Patches
             set_flash_message :notice, :signed_up if is_flashing_format?
             sign_in(resource_name, resource)
             
-            respond_with resource, :location => {:controller => 'displayqr', :action => 'show'}
+            if resource.respond_to? :gauth_enabled?
+              respond_with resource, :location => {:controller => 'displayqr', :action => 'show'}
+            else
+              respond_with resource, location: after_sign_up_path_for(resource)
+            end
+
           else
             set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_flashing_format?
             expire_data_after_sign_in!
