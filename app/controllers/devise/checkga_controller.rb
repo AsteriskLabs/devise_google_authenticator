@@ -16,12 +16,6 @@ class Devise::CheckgaController < Devise::SessionsController
   def update
     resource = resource_class.find_by_gauth_tmp(params[resource_name]['tmpid'])
 
-    if resource.class.name.downcase.to_sym == :player
-      path = player_checkga_path(id: params[:player][:tmpid])
-    else
-      path = affiliate_checkga_path(id: params[:affiliate][:tmpid])
-    end
-
     if not resource.nil?
       if resource.validate_token(params[resource_name]['gauth_token'].to_i)
         set_flash_message(:notice, :signed_in) if is_navigational_format?
@@ -38,12 +32,12 @@ class Devise::CheckgaController < Devise::SessionsController
         end
       else
         set_flash_message(:error, :error)
-        redirect_to path
+        redirect_to after_sign_in_error_path_for(resource)
       end
 
     else
       set_flash_message(:error, :error)
-      redirect_to path
+      redirect_to after_sign_in_error_path_for(resource)
     end
   end
 
