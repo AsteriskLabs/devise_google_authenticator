@@ -15,6 +15,9 @@ module DeviseGoogleAuthenticator
         "  # Change setting to how long to remember device before requiring another token. Change to nil to turn feature off.\n" +
         "  # To change the default, uncomment and change the below:\n" +
         "  # config.ga_remembertime = 1.month\n\n" +
+        "  # Change setting to assign the application name used by code generator. Defaults to Rails.application.class.parent_name.\n" +
+        "  # To change the default, uncomment and change the below:\n" +
+        "  # config.ga_appname = 'example.com'\n\n" +
         "\n", :before => /end[ |\n|]+\Z/
       end
 
