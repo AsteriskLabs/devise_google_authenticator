@@ -9,13 +9,20 @@ class Devise::DisplayqrController < DeviseController
       sign_in scope, resource, :bypass => true
       redirect_to stored_location_for(scope) || :root
     else
+      @tmpid = resource.assign_tmp
       render :show
     end
   end
 
   def update
+    if resource.gauth_tmp != params[resource_name]['tmpid'] || !resource.validate_token(params[resource_name]['gauth_token'].to_i)
+      set_flash_message(:error, :invalid_token)
+      render :show
+      return
+    end
+
     if resource.set_gauth_enabled(resource_params)
-      set_flash_message :notice, :status
+      set_flash_message :notice, (resource.gauth_enabled? ? :enabled : :disabled)
       sign_in scope, resource, :bypass => true
       redirect_to stored_location_for(scope) || :root
     else
