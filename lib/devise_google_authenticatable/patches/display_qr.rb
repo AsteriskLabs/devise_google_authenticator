@@ -17,7 +17,11 @@ module DeviseGoogleAuthenticator::Patches
             sign_in(resource_name, resource)
             
             if resource.respond_to? :gauth_enabled?
-              respond_with resource, :location => {:controller => 'displayqr', :action => 'show'}
+              if resource.class.ga_bypass_signup
+                respond_with resource, location: after_sign_up_path_for(resource)
+              else
+                respond_with resource, :location => {:controller => 'displayqr', :action => 'show'}
+              end
             else
               respond_with resource, location: after_sign_up_path_for(resource)
             end

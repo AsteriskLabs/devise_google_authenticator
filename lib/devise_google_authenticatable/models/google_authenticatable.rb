@@ -88,7 +88,7 @@ module Devise # :nodoc:
         def find_by_gauth_tmp(gauth_tmp)
           where(gauth_tmp: gauth_tmp).first
         end
-        ::Devise::Models.config(self, :ga_timeout, :ga_timedrift, :ga_remembertime, :ga_appname)
+        ::Devise::Models.config(self, :ga_timeout, :ga_timedrift, :ga_remembertime, :ga_appname, :ga_bypass_signup)
       end
     end
   end
