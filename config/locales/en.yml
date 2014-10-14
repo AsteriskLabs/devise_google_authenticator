@@ -17,3 +17,5 @@ en:
       user:
         status: "User status updated!"
         newtoken: "You have updated to a new token - make sure you update your Google Authenticator application before continuing!!"
+        disabled: "Two-factor authentication has been disabled."
+        enabled: "Two-factor authentication has been enabled."
