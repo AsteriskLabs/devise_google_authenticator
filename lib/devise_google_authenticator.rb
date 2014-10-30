@@ -20,6 +20,9 @@ module Devise # :nodoc:
 
 	mattr_accessor :ga_bypass_signup
 	@@ga_bypass_signup = false
+
+        mattr_accessor :ga_skip_validation_if
+        @@ga_skip_validation_if = false
 end
 
 # a security extension for devise

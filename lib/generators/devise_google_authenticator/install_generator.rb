@@ -21,6 +21,9 @@ module DeviseGoogleAuthenticator
         "  # Change setting to bypass the Display QR page immediately after a user sign's up\n" +
         "  # To change the default, uncomment and change the below. Defaults to false:\n" + 
         "  # config.ga_bypass_signup = true\n\n" + 
+        "  # Change setting to skip Google Authentication if the condition is true. This can be a boolean or a Proc with the parameters resource and request.\n" +
+        "  # To change the default, uncomment and change the below. This example will ignore Google Authentication if the request is from localhost. Default is false:\n" +
+        "  # config.ga_skip_validation_if = ->(resource, request) { request.remote_ip == '127.0.0.1' }\n\n" +
         "\n", :before => /end[ |\n|]+\Z/
       end
 
