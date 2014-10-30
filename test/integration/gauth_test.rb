@@ -60,7 +60,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
     puts page.body
     fill_in 'user_email', :with => 'fulluser@test.com'
     fill_in 'user_password', :with => '123456'
-    click_button 'Sign in'
+    click_button 'Log in'
 
     visit user_displayqr_path
     puts "Page 2"
@@ -87,7 +87,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
     puts page.body
     fill_in 'user_email', :with => 'fulluser@test.com'
     fill_in 'user_password', :with => '123456'
-    click_button 'Sign in'
+    click_button 'Log in'
 
     assert_equal user_checkga_path, current_path
   end
@@ -139,7 +139,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
 
   test 'user is not prompted for token again after first login until remembertime is up' do
     testuser = create_and_signin_gauth_user
-    fill_in 'user_token', :with => ROTP::TOTP.new(testuser.get_qr).at(Time.now)
+    fill_in 'user_gauth_token', :with => ROTP::TOTP.new(testuser.get_qr).at(Time.now)
     click_button 'Check Token'
 
     assert_equal root_path, current_path
