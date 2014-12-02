@@ -6,6 +6,7 @@ en:
       title: "Your QR Code:"
       nice_request: "Would you like to enable Google Authenticator?"
       qrstatus: "Google Authenticator Status:"
+      enter_token: "Please enter your token number to continue"
       submit: "Continue..."
       newtoken: "Generate new token"
     checkga:

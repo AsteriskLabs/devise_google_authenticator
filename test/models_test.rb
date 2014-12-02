@@ -28,6 +28,15 @@ class ModelsTest < ActiveSupport::TestCase
     assert_equal 3, User.ga_timedrift
   end
 
+  test 'should have a new value for ga_appname' do
+    old_ga_appname = User.ga_appname
+    User.ga_appname = "test.app"
+
+    assert_equal "test.app", User.ga_appname
+
+    User.ga_appname = old_ga_appname
+  end
+
   test 'should set a new value for ga_timeout' do
     old_ga_timeout = User.ga_timeout
     User.ga_timeout = 1.minutes
