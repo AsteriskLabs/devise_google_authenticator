@@ -12,4 +12,7 @@ group :test do
   gem 'factory_girl_rails', '~> 1.2'
   gem 'nokogiri', '< 1.6.0', :platforms => :ruby_18
   gem 'timecop'
+  gem 'railties'
+  gem 'actionmailer'
+  # gem 'debugger'
 end
