@@ -1,12 +1,12 @@
 class Devise::DisplayqrController < DeviseController
-  prepend_before_filter :authenticate_scope!, :only => [:show,:update,:refresh]
+  prepend_before_filter :authenticate_scope!, :only => [:show, :update, :refresh]
 
   include Devise::Controllers::Helpers
 
   # GET /resource/displayqr
   def show
     if resource.nil? || resource.gauth_secret.nil?
-      sign_in scope, resource, :bypass => true
+      sign_in resource_class.new, resource
       redirect_to stored_location_for(scope) || :root
     else
       @tmpid = resource.assign_tmp
