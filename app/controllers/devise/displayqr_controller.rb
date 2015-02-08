@@ -21,7 +21,7 @@ class Devise::DisplayqrController < DeviseController
       return
     end
 
-    if resource.set_gauth_enabled(resource_params)
+    if resource.set_gauth_enabled(params[resource_name]['gauth_enabled'])
       set_flash_message :notice, (resource.gauth_enabled? ? :enabled : :disabled)
       sign_in scope, resource, :bypass => true
       redirect_to stored_location_for(scope) || :root
@@ -52,6 +52,7 @@ class Devise::DisplayqrController < DeviseController
     self.resource = send("current_#{resource_name}")
   end
 
+  # 7/2/15 - Unsure if this is used anymore - @xntrik
   def resource_params
     return params.require(resource_name.to_sym).permit(:gauth_enabled) if strong_parameters_enabled?
     params

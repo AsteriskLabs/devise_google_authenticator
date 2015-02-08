@@ -19,8 +19,9 @@ module Devise # :nodoc:
           self.gauth_secret
         end
 
-        def set_gauth_enabled(params)
-          self.update_without_password(params)
+        def set_gauth_enabled(param)
+          #self.update_without_password(params[gauth_enabled])
+          self.update_attributes(:gauth_enabled => param)
         end
 
         def assign_tmp
