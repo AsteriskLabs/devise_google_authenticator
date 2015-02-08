@@ -44,9 +44,9 @@ Don't forget to migrate if you're NOT using Mongoid as your database ORM, Mongoi
 === Installation With Existing Users
 
 After the above steps have been performed, you'll need to generate secrets for each user:
- User.where(:gauth_secret => nil).each do |user|
+ User.where(:gauth_secret => nil).find_each do |user|
   user.send(:assign_auth_secret)
-  user.save
+  user.save!
  end
 By default, users won't need to perform two-factor authentication (gauth_enabled='f'). By visiting /MODEL/displayqr (eg: /users/displayqr)
 and submitting the form, two-factor authentication will then be turned on (gauth_enabled=1) and required for subsequent logins.
