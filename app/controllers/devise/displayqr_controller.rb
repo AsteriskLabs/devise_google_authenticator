@@ -5,10 +5,11 @@ class Devise::DisplayqrController < DeviseController
 
   # GET /resource/displayqr
   def show
-    if resource.nil? || resource.gauth_secret.nil?
+    if resource.nil?
       sign_in resource_class.new, resource
       redirect_to stored_location_for(scope) || :root
     else
+      resource.send(:assign_auth_secret) if resource.gauth_secret.nil?
       @tmpid = resource.assign_tmp
       render :show
     end
