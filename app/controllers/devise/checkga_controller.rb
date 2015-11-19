@@ -33,13 +33,17 @@ class Devise::CheckgaController < Devise::SessionsController
         end
       else
         set_flash_message(:error, :error)
-        redirect_to :root
+        redirect_to redirect_on_error_url
       end
 
     else
       set_flash_message(:error, :error)
-      redirect_to :root
+      redirect_to redirect_on_error_url
     end
+  end
+
+  def redirect_on_error_url
+    @redirect_on_error_url ||= :root
   end
 
   private

@@ -10,6 +10,9 @@ require 'rails/test_help'
 require 'capybara/rails'
 require 'timecop'
 
+require "mocha/integration/test_unit"
+Mocha::Integration::TestUnit.activate
+
 I18n.load_path << File.expand_path("../support/locale/en.yml", __FILE__) if DEVISE_ORM == :mongoid
 
 ActiveSupport::Deprecation.silenced = true

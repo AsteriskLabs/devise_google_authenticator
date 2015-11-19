@@ -57,6 +57,23 @@ class InvitationTest < ActionDispatch::IntegrationTest
     assert_equal root_path, current_path
   end
 
+  test 'gauth check redirects back to custom url' do
+    Devise::CheckgaController.any_instance.stubs(:redirect_on_error_url).returns('/foo')
+    puts "User" + User.all.to_s
+    create_full_user
+    puts "User" + User.all.to_s
+    visit new_user_session_path
+    puts page.body
+    fill_in 'user_email', :with => 'fulluser@test.com'
+    fill_in 'user_password', :with => '123456'
+    click_button 'Log in'
+
+    fill_in 'user_gauth_token', :with => "wrong token"
+    click_button 'Check Token'
+    assert_equal foo_path, current_path
+
+  end
+
   test 'a new user should be able to sign in change their qr to enabled and be prompted for their token' do
     create_full_user
     User.find_by_email("fulluser@test.com").update_attributes(:gauth_enabled => 0) # force this off - unsure why sometimes it flicks on possible race condition
