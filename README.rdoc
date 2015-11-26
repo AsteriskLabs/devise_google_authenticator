@@ -81,6 +81,7 @@ With this extension enabled, the following is expected behaviour:
 The install generator also installs an english copy of a Devise Google Authenticator i18n file. This can be modified (or used to create other language versions) and is located at: config/locales/devise.google_authenticator.en.yml
 
 == Changes
+* Version 0.3.17 - A new secret code (assign_auth_secret) for the google authenticator is created, if a user visits the settings page as long as the google authenticator is not active.
 * Version 0.3.16 - A few bug-fixes. Test-cases are now passing in Ruby 1.9.3 and 2.1.5
 * Version 0.3.15 - Can now configure whether the displayqr page is displayed during sign-up. Can customise the app's name (thanks Felipe Lima). Require the users to enter the token when enabling or disabling the token (thanks again Felipe Lima). Handle namespaced Devise models (thanks Mikkel Garcia). Ability to set an Issuer within the OTP generation (thanks Sylvain UTARD).
 * Version 0.3.14 - Users can now generate a new token if they wish. This is available from the displayqr page.
@@ -119,7 +120,7 @@ This extension would not exist without the following other projects and associat
 
 
 == Contributing to devise_google_authenticator
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
@@ -132,4 +133,3 @@ This extension would not exist without the following other projects and associat
 
 Copyright (c) 2014 Christian Frichot. See LICENSE.txt for
 further details.
-
