@@ -20,12 +20,12 @@ class GoogleAuthenticatableTest < ActiveSupport::TestCase
 	end
 
 	test 'updating gauth_enabled to true' do
-		User.find(1).set_gauth_enabled(:gauth_enabled => 1)
+		User.find(1).set_gauth_enabled(1)
 		assert_equal 1, User.find(1).gauth_enabled.to_i
 	end
 
 	test 'updating gauth_enabled back to false' do
-		User.find(1).set_gauth_enabled(:gauth_enabled => 0)
+		User.find(1).set_gauth_enabled(0)
 		assert_equal 0, User.find(1).gauth_enabled.to_i
 	end
 
