@@ -15,5 +15,4 @@ group :test do
   gem 'railties'
   gem 'actionmailer'
   gem 'test-unit'
-  # gem 'debugger'
 end
