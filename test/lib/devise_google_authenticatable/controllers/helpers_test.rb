@@ -9,7 +9,7 @@ class HelpersTest < ActiveSupport::TestCase
   end
 
   test "can get username from user's email" do
-    assert_equal 'helpers_test', username_from_email(@user.email)        
+    assert_equal 'helpers_test', username_from_email(@user.email)
   end
 
   test 'can get otpauth_user' do
@@ -25,9 +25,6 @@ class HelpersTest < ActiveSupport::TestCase
     src
   end
   test 'generate qrcode' do
-    assert_equal "https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl=otpauth%3A%2F%2Ftotp%2Fhelpers_test%40RailsApp%3Fsecret%3D", google_authenticator_qrcode(@user)
-    assert_equal "https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl=otpauth%3A%2F%2Ftotp%2Fhelpers_test%40RailsAppMyQualifier%3Fsecret%3D", google_authenticator_qrcode(@user, 'MyQualifier')
-    assert_equal "https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl=otpauth%3A%2F%2Ftotp%2Fhelpers_test%40RailsApp%3Fsecret%3D%26issuer%3DMyIssuer", google_authenticator_qrcode(@user, nil, 'MyIssuer')
-    assert_equal "https://chart.googleapis.com/chart?chs=200x200&chld=M|0&cht=qr&chl=otpauth%3A%2F%2Ftotp%2Fhelpers_test%40RailsAppMyQualifier%3Fsecret%3D%26issuer%3DMyIssuer", google_authenticator_qrcode(@user, 'MyQualifier', 'MyIssuer')
+    assert_equal 'data:image/png;base64,', google_authenticator_qrcode(@user).first(22)
   end
 end
