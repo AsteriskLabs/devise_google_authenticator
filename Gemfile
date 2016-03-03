@@ -12,4 +12,5 @@ group :test do
   gem 'factory_girl_rails', '~> 1.2'
   gem 'nokogiri', '< 1.6.0', :platforms => :ruby_18
   gem 'timecop'
+  gem 'test-unit', '~> 3.0'
 end
