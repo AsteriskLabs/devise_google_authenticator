@@ -25,7 +25,7 @@ class Devise::CheckgaController < Devise::SessionsController
 
         if not resource.class.ga_remembertime.nil?
           cookies.signed[:gauth] = {
-            :value => resource.email << "," << Time.now.to_i.to_s,
+            :value => resource.first_authentication_key << "," << Time.now.to_i.to_s,
             :secure => !(Rails.env.test? || Rails.env.development?),
             :expires => Time.now
           }
