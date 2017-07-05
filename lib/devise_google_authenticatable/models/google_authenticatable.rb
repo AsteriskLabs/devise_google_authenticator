@@ -54,6 +54,8 @@ module Devise # :nodoc:
           if self.gauth_enabled.respond_to?("to_i")
             if self.gauth_enabled.to_i != 0
               return true
+            else
+              return false
             end
           # Mongoid does NOT have a .to_i for the Boolean return value, hence, we can just return it
           else
