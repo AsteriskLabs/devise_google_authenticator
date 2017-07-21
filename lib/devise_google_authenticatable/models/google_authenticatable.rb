@@ -52,10 +52,10 @@ module Devise # :nodoc:
         def gauth_enabled?
           # Active_record seems to handle determining the status better this way
           if self.gauth_enabled.respond_to?("to_i")
-            if self.gauth_enabled.to_i == 0 || self.gauth_enabled == 'f'
-              return false
-            else
+            if self.gauth_enabled.to_i != 0
               return true
+            else
+              return false
             end
           # Mongoid does NOT have a .to_i for the Boolean return value, hence, we can just return it
           else
@@ -71,9 +71,13 @@ module Devise # :nodoc:
           if array.count != 2
             return true
           end
-          last_logged_in_email = array[0]
+          last_logged_in_authentication_key = array[0]
           last_logged_in_time = array[1].to_i
-          return last_logged_in_email != self.email || (Time.now.to_i - last_logged_in_time) > self.class.ga_remembertime.to_i
+          return last_logged_in_authentication_key != self.first_authentication_key || (Time.now.to_i - last_logged_in_time) > self.class.ga_remembertime.to_i
+        end
+
+        def first_authentication_key
+          public_send(self.class.authentication_keys.first)
         end
 
         private

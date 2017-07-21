@@ -23,11 +23,11 @@ class Devise::CheckgaController < Devise::SessionsController
         warden.manager._run_callbacks(:after_set_user, resource, warden, {:event => :authentication})
         respond_with resource, :location => after_sign_in_path_for(resource)
 
-        if not resource.class.ga_remembertime.nil?
+        if not resource.class.ga_remembertime.nil? 
           cookies.signed[:gauth] = {
-            :value => resource.email << "," << Time.now.to_i.to_s,
+            :value => resource.first_authentication_key << "," << Time.now.to_i.to_s,
             :secure => !(Rails.env.test? || Rails.env.development?),
-            :expires => Time.now
+            :expires => (resource.class.ga_remembertime + 1.days).from_now
           }
         end
       else
