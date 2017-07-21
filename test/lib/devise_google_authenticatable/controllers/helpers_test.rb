@@ -5,12 +5,12 @@ class HelpersTest < ActiveSupport::TestCase
     include DeviseGoogleAuthenticator::Controllers::Helpers
 
     def setup
-               @user = User.new(valid_attributes({:email => 'helpers_test@test.com' }))
+								@user = User.new(valid_attributes({:email => 'helpers_test@test.com' }))
 	end
 
 
     test "can get username from user's email" do
-        assert_equal 'helpers_test', username_from_email(@user.email)
+        assert_equal 'helpers_test', username_from_email(@user.email)        
     end
 
     test 'can get otpauth_user' do
