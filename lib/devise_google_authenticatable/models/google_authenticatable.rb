@@ -71,13 +71,9 @@ module Devise # :nodoc:
           if array.count != 2
             return true
           end
-          last_logged_in_authentication_key = array[0]
+          last_logged_in_email = array[0]
           last_logged_in_time = array[1].to_i
-          return last_logged_in_authentication_key != self.first_authentication_key || (Time.now.to_i - last_logged_in_time) > self.class.ga_remembertime.to_i
-        end
-
-        def first_authentication_key
-          public_send(self.class.authentication_keys.first)
+          return last_logged_in_authentication_key != self.email || (Time.now.to_i - last_logged_in_time) > self.class.ga_remembertime.to_i
         end
 
         private
