@@ -12,12 +12,13 @@ module DeviseGoogleAuthenticator
       end
 
       def otpauth_user(username, app, qualifier=nil)
-       "#{username}@#{app}#{qualifier}"
+        "#{username}@#{app}#{qualifier}"
       end
 
       def username_from_email(email)
-       (/^(.*)@/).match(email)[1]
+        (/^(.*)@/).match(email)[1]
       end
+
     end
   end
 end
