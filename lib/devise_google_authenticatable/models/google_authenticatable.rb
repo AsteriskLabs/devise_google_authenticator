@@ -73,7 +73,7 @@ module Devise # :nodoc:
           end
           last_logged_in_email = array[0]
           last_logged_in_time = array[1].to_i
-          return last_logged_in_authentication_key != self.email || (Time.now.to_i - last_logged_in_time) > self.class.ga_remembertime.to_i
+          return last_logged_in_email != self.email || (Time.now.to_i - last_logged_in_time) > self.class.ga_remembertime.to_i
         end
 
         private
