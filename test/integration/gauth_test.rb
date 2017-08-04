@@ -2,6 +2,7 @@ require 'test_helper'
 require 'integration_tests_helper'
 
 class InvitationTest < ActionDispatch::IntegrationTest
+  include IntegrationTestHelpers
   self.use_transactional_fixtures = false
 
   def teardown
@@ -60,7 +61,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
     puts page.body
     fill_in 'user_email', :with => 'fulluser@test.com'
     fill_in 'user_password', :with => '123456'
-    click_button 'Sign in'
+    click_button 'Log in'
 
     visit user_displayqr_path
     puts "Page 2"
@@ -87,7 +88,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
     puts page.body
     fill_in 'user_email', :with => 'fulluser@test.com'
     fill_in 'user_password', :with => '123456'
-    click_button 'Sign in'
+    click_button 'Log in'
 
     assert_equal user_checkga_path, current_path
   end

@@ -21,11 +21,11 @@ Gem::Specification.new do |s|
   # s.required_rubygems_version = '>= 2.1.0'
 
   {
-    'railties' => '>= 3.0',
+    'railties' => '>= 4.0',
     # removed the following to try and get past this bundle update not finding compatible versions for gem issue
     # 'actionmailer' => '>= 3.0', 
-    'actionmailer' => '>= 3.2.12',
-    'devise' => '>= 3.2.0',
+    'actionmailer' => '>= 4',
+    'devise' => '~> 4.2.0',
     'rotp'   => '~> 1.6.1'
   }.each do |lib, version|
     s.add_runtime_dependency(lib, *version)
