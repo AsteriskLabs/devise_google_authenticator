@@ -6,7 +6,7 @@ class Devise::DisplayqrController < DeviseController
   # GET /resource/displayqr
   def show
     if resource.nil? || resource.gauth_secret.nil?
-      bypass_sign_in resource
+      bypass_sign_in(resource) if resource
       redirect_to stored_location_for(scope) || :root
     else
       @tmpid = resource.assign_tmp
