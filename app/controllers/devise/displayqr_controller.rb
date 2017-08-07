@@ -6,7 +6,7 @@ class Devise::DisplayqrController < DeviseController
   # GET /resource/displayqr
   def show
     if resource.nil? || resource.gauth_secret.nil?
-      sign_in scope, resource, :bypass => true
+      bypass_sign_in(resource) if resource
       redirect_to stored_location_for(scope) || :root
     else
       @tmpid = resource.assign_tmp
@@ -23,7 +23,7 @@ class Devise::DisplayqrController < DeviseController
 
     if resource.set_gauth_enabled(resource_params)
       set_flash_message :notice, (resource.gauth_enabled? ? :enabled : :disabled)
-      sign_in scope, resource, :bypass => true
+      bypass_sign_in resource
       redirect_to stored_location_for(scope) || :root
     else
       render :show
@@ -35,7 +35,7 @@ class Devise::DisplayqrController < DeviseController
       resource.send(:assign_auth_secret)
       resource.save
       set_flash_message :notice, :newtoken
-      sign_in scope, resource, :bypass => true
+      bypass_sign_in resource
       redirect_to [resource_name, :displayqr]
     else
       redirect_to :root

@@ -1,4 +1,4 @@
-class ActionController::IntegrationTest
+module IntegrationTestHelpers
 
   def warden
     request.env['warden']
@@ -7,7 +7,6 @@ class ActionController::IntegrationTest
   def create_full_user
     @@user ||= begin
       user = User.create!(
-        :username              => 'usertest',
         :email                 => 'fulluser@test.com',
         :password              => '123456',
         :password_confirmation => '123456'
@@ -36,6 +35,6 @@ class ActionController::IntegrationTest
     visit send("new_#{resource_name}_session_path")
     fill_in "#{resource_name}_email", :with => user.email
     fill_in "#{resource_name}_password", :with => user.password
-    click_button 'Sign in'
+    click_button 'Log in'
   end
 end

@@ -4,7 +4,7 @@ DEVISE_ORM = (ENV["DEVISE_ORM"] || :active_record).to_sym
 $:.unshift File.dirname(__FILE__)
 puts "\n==> Devise.orm = #{DEVISE_ORM.inspect}"
 require "rails_app/config/environment"
-include Devise::TestHelpers
+Devise::Test::ControllerHelpers
 require "orm/#{DEVISE_ORM}"
 require 'rails/test_help'
 require 'capybara/rails'
