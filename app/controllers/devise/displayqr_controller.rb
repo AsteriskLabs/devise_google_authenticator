@@ -1,5 +1,5 @@
 class Devise::DisplayqrController < DeviseController
-  prepend_before_filter :authenticate_scope!, :only => [:show, :update, :refresh]
+  prepend_before_action :authenticate_scope!, :only => [:show, :update, :refresh]
 
   include Devise::Controllers::Helpers
 
