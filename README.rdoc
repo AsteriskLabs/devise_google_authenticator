@@ -1,3 +1,7 @@
+This project is no longer maintained.  
+If you have a more recent fork and you'd like us to link to it from here, please get in touch.
+
+
 = Devise Google Authenticator
 
 This is a devise[https://github.com/plataformatec/devise] extension to allow your app to utilise Google Authenticator[http://code.google.com/p/google-authenticator/] for Time-based One Time Passwords (TOTP).
