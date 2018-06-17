@@ -179,4 +179,52 @@ class InvitationTest < ActionDispatch::IntegrationTest
 
     Timecop.return
   end
+
+  test 'skip validation will not prompt the checkga page' do
+    default_value = User.ga_skip_validation_if
+
+    $skip_validation = false
+    User.ga_skip_validation_if = ->(user, request) { $skip_validation }
+
+    testuser = User.create!(
+      :username              => 'skip_validation_usertest',
+      :email                 => 'skip_validation@test.com',
+      :password              => '123456',
+      :password_confirmation => '123456'
+    )
+    testuser.gauth_enabled = 1
+    testuser.save!
+
+    Capybara.reset_sessions!
+
+    sign_in_as_user(testuser)
+    assert_equal user_checkga_path, current_path
+
+    $skip_validation = true
+
+    Capybara.reset_sessions!
+
+    sign_in_as_user(testuser)
+    assert_equal root_path, current_path
+
+    Capybara.reset_sessions!
+
+    # Skip if from localhost
+
+    User.ga_skip_validation_if = ->(user, request) { request.remote_ip == '127.0.0.1' }
+
+    sign_in_as_user(testuser)
+    assert_equal root_path, current_path
+
+    Capybara.reset_sessions!
+
+    # Skip if not from localhost
+
+    User.ga_skip_validation_if = ->(user, request) { request.remote_ip != '127.0.0.1' }
+
+    sign_in_as_user(testuser)
+    assert_equal user_checkga_path, current_path
+
+    User.ga_skip_validation_if = default_value
+  end
 end

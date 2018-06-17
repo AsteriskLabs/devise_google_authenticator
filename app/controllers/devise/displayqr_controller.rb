@@ -1,5 +1,5 @@
 class Devise::DisplayqrController < DeviseController
-  prepend_before_filter :authenticate_scope!, :only => [:show, :update, :refresh]
+  prepend_before_action :authenticate_scope!, :only => [:show, :update, :refresh]
 
   include Devise::Controllers::Helpers
 
@@ -48,14 +48,14 @@ class Devise::DisplayqrController < DeviseController
   end
 
   def authenticate_scope!
-    send(:"authenticate_#{resource_name}!")
+    send(:"authenticate_#{resource_name}!", :force => true)
     self.resource = send("current_#{resource_name}")
   end
 
   # 7/2/15 - Unsure if this is used anymore - @xntrik
   def resource_params
     return params.require(resource_name.to_sym).permit(:gauth_enabled) if strong_parameters_enabled?
-    params
+    params[resource_name.to_sym]
   end
 
   def strong_parameters_enabled?

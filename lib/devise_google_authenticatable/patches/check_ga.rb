@@ -14,12 +14,13 @@ module DeviseGoogleAuthenticator::Patches
       end
 
       define_method :create do
-
         resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
 
-        if resource.respond_to?(:get_qr) and resource.gauth_enabled? and resource.require_token?(cookies.signed[:gauth]) #Therefore we can quiz for a QR
+        if resource.respond_to?(:get_qr) and resource.gauth_enabled? and !resource.skip_validation?(request) and resource.require_token?(cookies.signed[:gauth]) #Therefore we can quiz for a QR
           tmpid = resource.assign_tmp #assign a temporary key and fetch it
+          previous_location = stored_location_for resource_name
           warden.logout #log the user out
+          store_location_for resource_name, previous_location # keep the location
 
           #we head back into the checkga controller with the temporary id
           #Because the model used for google auth may not always be the same, and may be a sub-model, the eval will evaluate the appropriate path name
