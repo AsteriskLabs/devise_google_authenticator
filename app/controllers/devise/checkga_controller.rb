@@ -24,7 +24,7 @@ class Devise::CheckgaController < Devise::SessionsController
         warden.manager._run_callbacks(:after_set_user, resource, warden, {:event => :authentication})
         respond_with resource, :location => after_sign_in_path_for(resource)
 
-        if not resource.class.ga_remembertime.nil? 
+        if not resource.class.ga_remembertime.nil?
           cookies.signed[:gauth] = {
             :value => resource.email << "," << Time.now.to_i.to_s,
             :secure => !(Rails.env.test? || Rails.env.development?),
@@ -33,13 +33,17 @@ class Devise::CheckgaController < Devise::SessionsController
         end
       else
         set_flash_message(:error, :error)
-        redirect_to :root
+        redirect_to redirect_on_error_url
       end
 
     else
       set_flash_message(:error, :error)
-      redirect_to :root
+      redirect_to redirect_on_error_url
     end
+  end
+
+  def redirect_on_error_url
+    :root
   end
 
   private

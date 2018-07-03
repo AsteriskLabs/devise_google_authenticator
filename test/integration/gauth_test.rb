@@ -83,12 +83,42 @@ class InvitationTest < ActionDispatch::IntegrationTest
 
   end
 
+  test 'if resource is nil redirects back to custom url' do
+    User.stubs(:find_by_gauth_tmp).returns(nil)
+    Devise::CheckgaController.any_instance.stubs(:redirect_on_error_url).returns('/foo')
+    testuser = create_full_user
+
+    visit new_user_session_path
+    fill_in 'user_email', :with => 'fulluser@test.com'
+    fill_in 'user_password', :with => '123456'
+    click_button 'Log in'
+
+    fill_in 'user_gauth_token', :with => ROTP::TOTP.new(testuser.get_qr).at(Time.now)
+    click_button 'Check Token'
+    assert_equal foo_path, current_path
+    Capybara.reset_sessions!
+  end
+
   test 'fail token authentication' do
     create_and_signin_gauth_user
     fill_in 'user_gauth_token', :with => '1'
     click_button 'Check Token'
 
     assert_equal new_user_session_path, current_path
+    Capybara.reset_sessions!
+  end
+
+  test 'fail token authentication redirects back to custom url' do
+    Devise::CheckgaController.any_instance.stubs(:redirect_on_error_url).returns('/foo')
+    create_full_user
+    visit new_user_session_path
+    fill_in 'user_email', :with => 'fulluser@test.com'
+    fill_in 'user_password', :with => '123456'
+    click_button 'Log in'
+
+    fill_in 'user_gauth_token', :with => "wrong token"
+    click_button 'Check Token'
+    assert_equal foo_path, current_path
     Capybara.reset_sessions!
   end
 
