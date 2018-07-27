@@ -14,5 +14,5 @@ group :test do
   gem 'timecop'
   gem 'railties'
   gem 'actionmailer'
-  # gem 'debugger'
+  gem 'test-unit'
 end

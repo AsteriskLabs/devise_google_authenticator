@@ -1,5 +1,5 @@
-module DeviseGoogleAuthenticator
-  module Orm
+module DeviseGoogleAuthenticator #:nodoc:
+  module Orm #:nodoc:
     # This module contains handle schema (migrations):
     #
     #  create_table :accounts do |t|
@@ -7,13 +7,11 @@ module DeviseGoogleAuthenticator
     #    t.gauth_enabled
     #  end
     #
-
     module ActiveRecord
-      module Schema
+      module Schema #:nodoc:
         include DeviseGoogleAuthenticator::Schema
       end
     end
-
   end
 end
 
