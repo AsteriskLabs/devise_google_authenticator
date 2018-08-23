@@ -33,7 +33,7 @@ class Devise::DisplayqrController < DeviseController
   def refresh
     unless resource.nil?
       resource.send(:assign_auth_secret)
-      resource.save
+      resource.save(:validate => false)
       set_flash_message :notice, :newtoken
       sign_in scope, resource, :bypass => true
       redirect_to [resource_name, :displayqr]
