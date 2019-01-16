@@ -55,6 +55,20 @@ class ModelsTest < ActiveSupport::TestCase
     User.ga_timedrift = old_ga_timedrift
   end
 
+  test 'should have a default value for ga_skip_validation_if' do
+    assert_equal false, User.ga_skip_validation_if
+    assert_equal false, User.first.skip_validation?(nil)
+  end
+
+  test 'should set a new value for ga_skip_validation_if' do
+    old_ga_skip_validation_if = User.ga_skip_validation_if
+    User.ga_skip_validation_if = ->(user, _) { user.email == 'fulluser@test.com' }
+
+    assert_equal true, User.first.skip_validation?(nil)
+
+    User.ga_skip_validation_if = old_ga_skip_validation_if
+  end
+
   test 'google_authenticatable attributes' do
     assert_equal 'f', User.new.gauth_enabled
     assert_nil User.new.gauth_tmp
