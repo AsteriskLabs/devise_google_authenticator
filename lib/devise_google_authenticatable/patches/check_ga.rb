@@ -14,11 +14,10 @@ module DeviseGoogleAuthenticator::Patches
       end
 
       define_method :create do
-
         resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
 
         redirect_path = after_sign_in_path_for(resource)
-        if resource.respond_to?(:get_qr) and resource.gauth_enabled? and resource.require_token?(cookies.signed[:gauth]) #Therefore we can quiz for a QR
+        if resource.respond_to?(:get_qr) and resource.gauth_enabled? and !resource.skip_validation?(request) and resource.require_token?(cookies.signed[:gauth]) #Therefore we can quiz for a QR
           tmpid = resource.assign_tmp #assign a temporary key and fetch it
           warden.logout #log the user out
           store_location_for(resource, redirect_path)
@@ -32,7 +31,6 @@ module DeviseGoogleAuthenticator::Patches
           sign_in(resource_name, resource)
           respond_with resource, :location => after_sign_in_path_for(resource)
         end
-
       end
     end
   end

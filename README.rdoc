@@ -21,9 +21,9 @@ Install Devise:
 Setup the User or Admin model
 * rails g devise MODEL
 
-Configure your app for authorisation, edit your Controller and add this before_filter:
+Configure your app for authorisation, edit your Controller and add this before_action:
 
-* before_filter :authenticate_user!
+* before_action :authenticate_user!
 
 Make sure your "root" route is configured in config/routes.rb
 
@@ -58,8 +58,12 @@ The install generator adds some options to the end of your Devise config file (c
 * config.ga_timeout - how long should the user be able to authenticate with their Google Authenticator token
 * config.ga_timedrift - a multiplier which provides for drift between a user's clock (and therefore their OTP) and the system clock. This should be fine at 3.
 * config.ga_remembertime - how long to remember the token for before requiring another. By default this is 1 month. To disable this setting change it to nil.
+* config.ga_remember_optional - true if the user is able to set whether or not the device should remember to not requiring another token, as long as the ga_remembertime is not expired.
+  * If this is enabled you can pass a boolean POST-parameter from the form called remember_me: <%= check_box_tag :remember_me %>
 * config.ga_appname - If you want to set a custom application name instead of using the name of the Rails app.
 * config.ga_bypass_signup - If you don't want to immediately forward newly registered or signed-up users to the Display QR page. If this is enabled, users will have to visit the /displayqr page to enable Google Authenticator.
+* config.ga_skip_validation_if - If you want to skip Google Authenticator on specific conditions. Can be a boolean or a Proc with the parameters resource and request.
+  * Example to skip Google Authentication for requests from localhost: config.ga_skip_validation_if = ->(resource, request) { request.remote_ip == '127.0.0.1' }
 
 == Custom Views
 

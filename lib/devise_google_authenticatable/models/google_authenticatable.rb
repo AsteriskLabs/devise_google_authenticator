@@ -80,19 +80,35 @@ module Devise # :nodoc:
           public_send(self.class.authentication_keys.first)
         end
 
+        def skip_validation? request
+          if self.class.ga_skip_validation_if.is_a? Proc
+            case self.class.ga_skip_validation_if.arity
+            when 0
+              self.class.ga_skip_validation_if.call
+            when 1
+              self.class.ga_skip_validation_if.call self
+            when 2
+              self.class.ga_skip_validation_if.call self, request
+            else
+              raise ArgumentError.new("too many required arguments for ga_skip_validation_if (#{self.class.ga_skip_validation.if.arity} instead of 0..2)")
+            end
+          else
+            self.class.ga_skip_validation_if
+          end
+        end
+
         private
 
         def assign_auth_secret
           self.gauth_secret = ROTP::Base32.random_base32(64)
         end
-
       end
 
       module ClassMethods # :nodoc:
         def find_by_gauth_tmp(gauth_tmp)
           where(gauth_tmp: gauth_tmp).first
         end
-        ::Devise::Models.config(self, :ga_timeout, :ga_timedrift, :ga_remembertime, :ga_appname, :ga_bypass_signup)
+        ::Devise::Models.config(self, :ga_timeout, :ga_timedrift, :ga_remembertime, :ga_remember_optional, :ga_appname, :ga_bypass_signup)
       end
     end
   end

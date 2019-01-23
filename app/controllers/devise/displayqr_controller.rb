@@ -1,5 +1,5 @@
 class Devise::DisplayqrController < DeviseController
-  prepend_before_filter :authenticate_scope!, :only => [:show,:update,:refresh]
+  prepend_before_action :authenticate_scope!, only: %i( show update refresh)
 
   include Devise::Controllers::Helpers
 
@@ -31,7 +31,7 @@ class Devise::DisplayqrController < DeviseController
   end
 
   def refresh
-    unless resource.nil?
+    if resource.present?
       resource.send(:assign_auth_secret)
       resource.save
       set_flash_message :notice, :newtoken
@@ -43,12 +43,13 @@ class Devise::DisplayqrController < DeviseController
   end
 
   private
+
   def scope
     resource_name.to_sym
   end
 
   def authenticate_scope!
-    send(:"authenticate_#{resource_name}!")
+    send(:"authenticate_#{resource_name}!", force: true)
     self.resource = send("current_#{resource_name}")
   end
 
