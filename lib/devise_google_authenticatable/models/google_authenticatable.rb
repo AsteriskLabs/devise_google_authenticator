@@ -9,7 +9,7 @@ module Devise # :nodoc:
         base.extend ClassMethods
 
         base.class_eval do
-          before_validation :assign_auth_secret, :on => :create
+          before_validation :assign_auth_secret, on: :create
           include InstanceMethods
         end
       end
@@ -20,12 +20,11 @@ module Devise # :nodoc:
         end
 
         def set_gauth_enabled(param)
-          #self.update_without_password(params[gauth_enabled])
-          self.update_attributes(:gauth_enabled => param)
+          self.update_attributes(gauth_enabled: param)
         end
 
         def assign_tmp
-          self.update_attributes(:gauth_tmp => ROTP::Base32.random_base32(32), :gauth_tmp_datetime => DateTime.now)
+          self.update_attributes(gauth_tmp: ROTP::Base32.random(32), gauth_tmp_datetime: DateTime.now)
           self.gauth_tmp
         end
 
@@ -42,7 +41,7 @@ module Devise # :nodoc:
               valid_vals << ROTP::TOTP.new(self.get_qr).at(Time.now.in(30*cc))
             end
 
-            if valid_vals.include?(token.to_i)
+            if valid_vals.include?(token)
               return true
             else
               return false
@@ -80,15 +79,12 @@ module Devise # :nodoc:
         private
 
         def assign_auth_secret
-          self.gauth_secret = ROTP::Base32.random_base32(64)
+          self.gauth_secret = ROTP::Base32.random(64)
         end
 
       end
 
       module ClassMethods # :nodoc:
-        def find_by_gauth_tmp(gauth_tmp)
-          where(gauth_tmp: gauth_tmp).first
-        end
         ::Devise::Models.config(self, :ga_timeout, :ga_timedrift, :ga_remembertime, :ga_appname, :ga_bypass_signup)
       end
     end
