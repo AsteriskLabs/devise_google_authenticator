@@ -12,6 +12,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'nokogiri'
   gem 'timecop'
-  gem 'railties'
-  gem 'actionmailer'
+  gem 'railties', '~> 5.0.7'
+  gem 'actionmailer', '~> 5.0.7'
 end
