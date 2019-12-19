@@ -16,8 +16,8 @@ module DeviseGoogleAuthenticator::Patches
       define_method :create do
         resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#new")
 
-        redirect_path = after_sign_in_path_for(resource)
         if resource.respond_to?(:get_qr) and resource.gauth_enabled? and !resource.skip_validation?(request) and resource.require_token?(cookies.signed[:gauth]) #Therefore we can quiz for a QR
+          redirect_path = after_sign_in_path_for(resource)
           tmpid = resource.assign_tmp #assign a temporary key and fetch it
           warden.logout #log the user out
           store_location_for(resource, redirect_path)
@@ -29,7 +29,7 @@ module DeviseGoogleAuthenticator::Patches
         else #It's not using, or not enabled for Google 2FA, OR is remembering token and therefore not asking for the moment - carry on, nothing to see here.
           set_flash_message(:notice, :signed_in) if is_flashing_format?
           sign_in(resource_name, resource)
-          respond_with resource, :location => after_sign_in_path_for(resource)
+          respond_with resource
         end
       end
     end
