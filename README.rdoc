@@ -1,5 +1,4 @@
-This project is no longer maintained.  
-If you have a more recent fork and you'd like us to link to it from here, please get in touch.
+This project is no longer officially maintained. This is forked from the `AsteriskLabs` repository to enable us to use this with Rails 5+ and Devise 4+.
 
 
 = Devise Google Authenticator
@@ -11,7 +10,7 @@ This is a devise[https://github.com/plataformatec/devise] extension to allow you
 Add the gem to your Gemfile (don't forget devise too):
 
 * gem 'devise'
-* gem 'devise_google_authenticator', '0.3.16'
+* gem 'devise_google_authenticator', '0.4.0'
 
 Don't forget to "bundle install"
 
@@ -85,6 +84,7 @@ With this extension enabled, the following is expected behaviour:
 The install generator also installs an english copy of a Devise Google Authenticator i18n file. This can be modified (or used to create other language versions) and is located at: config/locales/devise.google_authenticator.en.yml
 
 == Changes
+* Version 0.4.0 - Devise 4 and Rails 5.0 support
 * Version 0.3.16 - A few bug-fixes. Test-cases are now passing in Ruby 1.9.3 and 2.1.5
 * Version 0.3.15 - Can now configure whether the displayqr page is displayed during sign-up. Can customise the app's name (thanks Felipe Lima). Require the users to enter the token when enabling or disabling the token (thanks again Felipe Lima). Handle namespaced Devise models (thanks Mikkel Garcia). Ability to set an Issuer within the OTP generation (thanks Sylvain UTARD).
 * Version 0.3.14 - Users can now generate a new token if they wish. This is available from the displayqr page.
