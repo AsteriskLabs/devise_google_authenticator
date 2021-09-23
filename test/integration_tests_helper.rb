@@ -6,12 +6,12 @@ class ActionDispatch::IntegrationTest
   def test_user
     @test_user ||= User.find_by(email: 'fulluser@test.com') || User.create(email: "fulluser@test.com", password: '123456', password_confirmation: '123456')
   end
-  
+
   def create_full_user
     test_user # For compatibility in tests
   end
 
-  def create_and_signin_gauth_user
+  def create_and_signin_gauth_user # rubocop:todo Metrics/AbcSize
     test_user.set_gauth_enabled(0) # Reset to off to allow turning on to work
     sign_in_as_user(test_user)
     visit user_displayqr_path

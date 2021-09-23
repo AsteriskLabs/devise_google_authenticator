@@ -10,7 +10,7 @@ Rake::TestTask.new(:test) do |test|
 end
 
 desc 'Default: run tests for all ORMs.'
-task :default => :tests
+task default: :tests
 
 desc 'Run Devise tests for all ORMs.'
 task :tests do

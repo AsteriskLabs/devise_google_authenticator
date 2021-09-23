@@ -4,11 +4,12 @@ module DeviseGoogleAuthenticator::Patches
     extend ActiveSupport::Concern
 
     included do
-
-      #arrr be the patch
+      # arrr be the patch
       alias_method :create_original, :create
 
-      define_method :create do |&block|
+      # rubocop:todo Metrics/PerceivedComplexity
+      # rubocop:todo Metrics/AbcSize
+      define_method :create do |&block| # rubocop:todo Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
         build_resource(sign_up_params)
 
         if resource.save
@@ -18,10 +19,10 @@ module DeviseGoogleAuthenticator::Patches
             sign_in(resource_name, resource)
 
             if resource.respond_to? :gauth_enabled?
-              if resource.class.ga_bypass_signup
+              if resource.class.ga_bypass_signup # rubocop:todo Metrics/BlockNesting
                 respond_with resource, location: after_sign_up_path_for(resource)
               else
-                respond_with resource, location: {controller: 'displayqr', action: 'show'}
+                respond_with resource, location: { controller: 'displayqr', action: 'show' }
               end
             else
               respond_with resource, location: after_sign_up_path_for(resource)
@@ -37,6 +38,8 @@ module DeviseGoogleAuthenticator::Patches
           respond_with resource
         end
       end
+      # rubocop:enable Metrics/AbcSize
+      # rubocop:enable Metrics/PerceivedComplexity
     end
   end
 end

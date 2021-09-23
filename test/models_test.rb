@@ -3,7 +3,7 @@ require 'test_helper'
 class ModelsTest < ActiveSupport::TestCase
   def include_module?(klass, mod)
     klass.devise_modules.include?(mod) &&
-    klass.included_modules.include?(Devise::Models::const_get(mod.to_s.classify))
+      klass.included_modules.include?(Devise::Models.const_get(mod.to_s.classify))
   end
 
   def assert_include_modules(klass, *modules)
@@ -12,7 +12,7 @@ class ModelsTest < ActiveSupport::TestCase
     end
 
     (Devise::ALL - modules).each do |mod|
-      assert !include_module?(klass, mod), "#{klass} include #{mod}"
+      assert_not include_module?(klass, mod), "#{klass} include #{mod}"
     end
   end
 
@@ -39,9 +39,9 @@ class ModelsTest < ActiveSupport::TestCase
 
   test 'should set a new value for ga_timeout' do
     old_ga_timeout = User.ga_timeout
-    User.ga_timeout = 1.minutes
+    User.ga_timeout = 1.minute
 
-    assert_equal 1.minutes, User.ga_timeout
+    assert_equal 1.minute, User.ga_timeout
 
     User.ga_timeout = old_ga_timeout
   end

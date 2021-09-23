@@ -7,11 +7,11 @@ module Mongoid
       include Devise::Generators::OrmHelpers
 
       def inject_field_types
-        inject_into_file model_path, migration_data, :after => "include Mongoid::Document\n" if model_exists?
+        inject_into_file model_path, migration_data, after: "include Mongoid::Document\n" if model_exists?
       end
 
       def migration_data
-<<RUBY
+        <<RUBY
   # Google Authenticator
   field :gauth_secret, :type => String
   field :gauth_enabled, :type => Boolean, :default => 'f'
@@ -23,4 +23,3 @@ RUBY
     end
   end
 end
-

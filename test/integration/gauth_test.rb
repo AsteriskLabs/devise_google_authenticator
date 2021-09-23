@@ -34,7 +34,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
     fill_in 'user_email', with: 'fulluser@test.com'
     fill_in 'user_password', with: '123456'
     click_button 'Log in'
-    
+
     test_user.update_attributes(gauth_enabled: 1)
     assert_equal root_path, current_path
   end

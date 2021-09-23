@@ -21,18 +21,17 @@ module DeviseGoogleAuthenticator
     def gauth_secret
       apply_devise_schema :gauth_secret, String
     end
-    
+
     def gauth_enabled
-      apply_devise_schema :gauth_enabled, Integer, {:default => 0}
+      apply_devise_schema :gauth_enabled, Integer, { default: 0 }
     end
 
     def gauth_tmp
-        apply_devise_schema :gauth_tmp, String
+      apply_devise_schema :gauth_tmp, String
     end
 
     def gauth_tmp_datetime
-        apply_devise_schema :gauth_tmp_datetime, Datetime
+      apply_devise_schema :gauth_tmp_datetime, Datetime
     end
-
   end
 end

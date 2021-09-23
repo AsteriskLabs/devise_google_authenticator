@@ -1,5 +1,5 @@
 class Devise::DisplayqrController < DeviseController
-  prepend_before_action :authenticate_scope!, only: [:show, :update, :refresh]
+  prepend_before_action :authenticate_scope!, only: %i[show update refresh]
 
   include Devise::Controllers::Helpers
 
@@ -14,7 +14,7 @@ class Devise::DisplayqrController < DeviseController
     end
   end
 
-  def update
+  def update # rubocop:todo Metrics/AbcSize
     if resource.gauth_tmp != params[resource_name]['tmpid'] || !resource.validate_token(params[resource_name]['gauth_token'])
       set_flash_message(:error, :invalid_token)
       render :show
@@ -31,14 +31,14 @@ class Devise::DisplayqrController < DeviseController
   end
 
   def refresh
-    unless resource.nil?
+    if resource.nil?
+      redirect_to :root
+    else
       resource.send(:assign_auth_secret)
       resource.save
       set_flash_message :notice, :newtoken
       bypass_sign_in resource, scope: scope
       redirect_to [resource_name, :displayqr]
-    else
-      redirect_to :root
     end
   end
 
