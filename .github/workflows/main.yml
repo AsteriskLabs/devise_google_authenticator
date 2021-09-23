@@ -1,0 +1,16 @@
+name: Build and Publish Ruby Gem on Tag Pushes
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build and Publish Ruby Gem on Tag Pushes
+      uses: redcanaryco/gh-action-publish-gem-on-tag@master
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        owner: redcanaryco
