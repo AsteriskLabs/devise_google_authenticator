@@ -1,0 +1,10 @@
+inherit_gem:
+  rubocop-redcanary:
+    - default.yml
+    - rails.yml
+
+AllCops:
+  NewCops: disable
+  TargetRubyVersion: 2.7
+  Exclude:
+    - 'test/rails_app/**/*'

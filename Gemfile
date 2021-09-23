@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 gemspec
-  
+
+gem 'rubocop-redcanary', '~> 0.6', source: "https://rubygems.pkg.github.com/redcanaryco"
 
 group :test do
   gem 'activerecord', '~> 5.0.7'
