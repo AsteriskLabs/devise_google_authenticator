@@ -1,6 +1,5 @@
-This project is no longer officially maintained. This is forked from the `AsteriskLabs` repository to enable us to use this with Rails 5+ and Devise 4+.
-
-The actual version of this that runs for the Red Canary Portal is located in the Portal repository as `vendor/gems/devise_google_authenticator`.
+This project is no longer maintained.  
+If you have a more recent fork and you'd like us to link to it from here, please get in touch.
 
 
 = Devise Google Authenticator
