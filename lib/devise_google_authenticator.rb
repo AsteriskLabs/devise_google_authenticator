@@ -19,7 +19,7 @@ module Devise # :nodoc:
 	@@ga_remember_optional= false
 
 	mattr_accessor :ga_appname
-	@@ga_appname = Rails.application.class.parent_name
+	@@ga_appname = Rails.application.class.module_parent_name
 
 	mattr_accessor :ga_bypass_signup
 	@@ga_bypass_signup = false
