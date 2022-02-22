@@ -1,6 +1,6 @@
 class Devise::CheckgaController < Devise::SessionsController
-  prepend_before_filter :devise_resource, :only => [:show]
-  prepend_before_filter :require_no_authentication, :only => [ :show, :update ]
+  prepend_before_action :devise_resource, :only => [:show]
+  prepend_before_action :require_no_authentication, :only => [ :show, :update ]
 
   include Devise::Controllers::Helpers
 
@@ -24,7 +24,7 @@ class Devise::CheckgaController < Devise::SessionsController
         warden.manager._run_callbacks(:after_set_user, resource, warden, {:event => :authentication})
         respond_with resource, :location => after_sign_in_path_for(resource)
 
-        if not resource.class.ga_remembertime.nil? 
+        if not resource.class.ga_remembertime.nil?
           cookies.signed[:gauth] = {
             :value => resource.email << "," << Time.now.to_i.to_s,
             :secure => !(Rails.env.test? || Rails.env.development?),
