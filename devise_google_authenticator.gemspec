@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.summary = "Devise Google Authenticator Extension"
 
-  s.required_ruby_version = '>= 1.9.2'
+  s.required_ruby_version = '>= 2.5'
   # s.required_rubygems_version = '>= 2.1.0'
 
   {
@@ -26,7 +26,8 @@ Gem::Specification.new do |s|
     # 'actionmailer' => '>= 3.0',
     'actionmailer' => '>= 4',
     'devise' => '>= 4.6.0',
-    'rotp'   => '~> 1.6.1'
+    'rotp'   => '~> 1.6.1',
+    'google-cloud-kms' => '~> 2.3.0'
   }.each do |lib, version|
     s.add_runtime_dependency(lib, *version)
   end
