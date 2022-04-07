@@ -16,7 +16,11 @@ module Devise # :nodoc:
 
       module InstanceMethods # :nodoc:
         def get_qr
-          self.gauth_secret
+          if self.class.ga_kms_key_name && gauth_secret_version.positive?
+            KmsService.decrypt(gauth_secret)
+          else
+            gauth_secret
+          end
         end
 
         def set_gauth_enabled(params)
@@ -100,7 +104,14 @@ module Devise # :nodoc:
         private
 
         def assign_auth_secret
-          self.gauth_secret = ROTP::Base32.random_base32(64)
+          secret = ROTP::Base32.random_base32(64)
+          if self.class.ga_kms_key_name
+            self.gauth_secret = KmsService.encrypt(secret)
+            self.gauth_secret_version = 1
+          else
+            self.gauth_secret = secret
+            self.gauth_secret_version = 0
+          end
         end
       end
 
@@ -108,7 +119,7 @@ module Devise # :nodoc:
         def find_by_gauth_tmp(gauth_tmp)
           where(gauth_tmp: gauth_tmp).first
         end
-        ::Devise::Models.config(self, :ga_timeout, :ga_timedrift, :ga_remembertime, :ga_remember_optional, :ga_appname, :ga_bypass_signup, :ga_skip_validation_if)
+        ::Devise::Models.config(self, :ga_timeout, :ga_timedrift, :ga_remembertime, :ga_remember_optional, :ga_appname, :ga_bypass_signup, :ga_skip_validation_if, :ga_kms_key_name)
       end
     end
   end
