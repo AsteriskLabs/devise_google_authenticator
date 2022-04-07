@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
     'actionmailer' => '>= 4',
     'devise' => '>= 4.6.0',
     'rotp'   => '~> 1.6.1',
-    'google-cloud-kms' => '~> 2.2.1'
+    'google-cloud-kms' => '~> 2.1.2'
   }.each do |lib, version|
     s.add_runtime_dependency(lib, *version)
   end
