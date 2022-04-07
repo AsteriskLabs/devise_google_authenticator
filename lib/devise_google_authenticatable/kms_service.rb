@@ -9,14 +9,14 @@ module DeviseGoogleAuthenticator
     end
 
     def decrypt(ciphertext)
-      client = Google::Cloud::Kms.key_management_service
-      response = client.decrypt(name: kms_key_name, ciphertext: ciphertext)
+      client = Google::Cloud::Kms.new
+      response = client.decrypt(kms_key_name, ciphertext)
       response.plaintext
     end
 
     def encrypt(plaintext)
-      client = Google::Cloud::Kms.key_management_service
-      response = client.encrypt(name: kms_key_name, plaintext: plaintext)
+      client = Google::Cloud::Kms.new
+      response = client.encrypt(kms_key_name, plaintext)
       response.ciphertext
     end
 
