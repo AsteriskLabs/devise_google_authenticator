@@ -26,6 +26,9 @@ module Devise # :nodoc:
 
   mattr_accessor :ga_skip_validation_if
   @@ga_skip_validation_if = false
+
+  mattr_accessor :ga_kms_key_name
+  @@ga_kms_key_name = nil
 end
 
 # a security extension for devise
