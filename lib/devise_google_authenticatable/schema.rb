@@ -23,7 +23,7 @@ module DeviseGoogleAuthenticator
     end
 
     def gauth_secret_version
-      apply_devise_schema :gauth_secret_version, Integer, defaut: 0
+      apply_devise_schema :gauth_secret_version, Integer
     end
 
 

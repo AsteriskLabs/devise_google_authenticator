@@ -16,7 +16,7 @@ module Devise # :nodoc:
 
       module InstanceMethods # :nodoc:
         def get_qr
-          if self.class.ga_kms_key_name.present? && gauth_secret_version.positive?
+          if self.class.ga_kms_key_name.present? && (gauth_secret_version || 0).positive?
             ::DeviseGoogleAuthenticator::KmsService.new(self.class.ga_kms_key_name)
                                                    .decrypt(gauth_secret)
           else
