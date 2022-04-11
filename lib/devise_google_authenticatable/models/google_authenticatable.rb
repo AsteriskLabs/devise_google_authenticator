@@ -16,8 +16,11 @@ module Devise # :nodoc:
 
       module InstanceMethods # :nodoc:
         def get_qr
-          if self.class.ga_kms_key_name.present? && (gauth_secret_version || 0).positive?
-            ::DeviseGoogleAuthenticator::KmsService.new(self.class.ga_kms_key_name)
+          if (gauth_secret_version || 0).positive?
+            key_name = self.class.ga_kms_key_name
+            raise 'The kms key name has not been delivered' if key_name.blank?
+
+            ::DeviseGoogleAuthenticator::KmsService.new(key_name)
                                                    .decrypt(gauth_secret)
           else
             gauth_secret
