@@ -26,6 +26,9 @@ module Devise # :nodoc:
 
   mattr_accessor :ga_skip_validation_if
   @@ga_skip_validation_if = false
+
+  mattr_accessor :ga_kms_key_name
+  @@ga_kms_key_name = nil
 end
 
 # a security extension for devise
@@ -40,6 +43,7 @@ require 'devise_google_authenticatable/routes'
 require 'devise_google_authenticatable/rails'
 require 'devise_google_authenticatable/orm/active_record'
 require 'devise_google_authenticatable/controllers/helpers'
+require 'devise_google_authenticatable/kms_service'
 ActionView::Base.send :include, DeviseGoogleAuthenticator::Controllers::Helpers
 
 Devise.add_module :google_authenticatable, :controller => :google_authenticatable, :model => 'devise_google_authenticatable/models/google_authenticatable', :route => :displayqr
