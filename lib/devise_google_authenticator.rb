@@ -29,6 +29,9 @@ module Devise # :nodoc:
 
   mattr_accessor :ga_kms_key_name
   @@ga_kms_key_name = nil
+
+  mattr_accessor :ga_kms_credentials
+  @@ga_kms_credentials = nil
 end
 
 # a security extension for devise

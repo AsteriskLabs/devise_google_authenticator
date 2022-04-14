@@ -18,9 +18,11 @@ module Devise # :nodoc:
         def get_qr
           if (gauth_secret_version || 0).positive?
             key_name = self.class.ga_kms_key_name
+            credentials = self.class.ga_kms_credentials
             raise 'The kms key name has not been delivered' if key_name.blank?
+            raise 'The kms credentials have not been delivered' if credentials.blank?
 
-            ::DeviseGoogleAuthenticator::KmsService.new(key_name)
+            ::DeviseGoogleAuthenticator::KmsService.new(credentials, key_name)
                                                    .decrypt(gauth_secret)
           else
             gauth_secret
@@ -109,9 +111,10 @@ module Devise # :nodoc:
 
         def assign_auth_secret
           secret = ROTP::Base32.random_base32(64)
-          if self.class.ga_kms_key_name.present?
+          if self.class.ga_kms_key_name.present? && self.class.ga_kms_credentials.present?
             self.gauth_secret =
-              ::DeviseGoogleAuthenticator::KmsService.new(self.class.ga_kms_key_name)
+              ::DeviseGoogleAuthenticator::KmsService.new(self.class.ga_kms_credentials,
+                                                          self.class.ga_kms_key_name)
                                                      .encrypt(secret)
             self.gauth_secret_version = 1
           else
@@ -125,7 +128,9 @@ module Devise # :nodoc:
         def find_by_gauth_tmp(gauth_tmp)
           where(gauth_tmp: gauth_tmp).first
         end
-        ::Devise::Models.config(self, :ga_timeout, :ga_timedrift, :ga_remembertime, :ga_remember_optional, :ga_appname, :ga_bypass_signup, :ga_skip_validation_if, :ga_kms_key_name)
+        ::Devise::Models.config(self, :ga_timeout, :ga_timedrift, :ga_remembertime,
+                                :ga_remember_optional, :ga_appname, :ga_bypass_signup,
+                                :ga_skip_validation_if, :ga_kms_key_name, :ga_kms_credentials)
       end
     end
   end
