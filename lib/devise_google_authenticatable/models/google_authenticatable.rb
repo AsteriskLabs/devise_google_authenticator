@@ -22,8 +22,9 @@ module Devise # :nodoc:
             raise 'The kms key name has not been delivered' if key_name.blank?
             raise 'The kms credentials have not been delivered' if credentials.blank?
 
+            encrypted_secret = Base64.decode64(gauth_secret)
             ::DeviseGoogleAuthenticator::KmsService.new(credentials, key_name)
-                                                   .decrypt(gauth_secret)
+                                                   .decrypt(encrypted_secret)
           else
             gauth_secret
           end
@@ -112,10 +113,11 @@ module Devise # :nodoc:
         def assign_auth_secret
           secret = ROTP::Base32.random_base32(64)
           if self.class.ga_kms_key_name.present? && self.class.ga_kms_credentials.present?
-            self.gauth_secret =
+            encrypted_secret =
               ::DeviseGoogleAuthenticator::KmsService.new(self.class.ga_kms_credentials,
                                                           self.class.ga_kms_key_name)
                                                      .encrypt(secret)
+            self.gauth_secret = Base64.encode64(encrypted_secret)
             self.gauth_secret_version = 1
           else
             self.gauth_secret = secret
