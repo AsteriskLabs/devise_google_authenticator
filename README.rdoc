@@ -7,7 +7,7 @@ This is a devise[https://github.com/plataformatec/devise] extension to allow you
 Add the gem to your Gemfile (don't forget devise too):
 
 * gem 'devise'
-* gem 'devise_google_authenticator', '0.6.0'
+* gem 'devise_google_authenticator', '0.6.1'
 
 Don't forget to "bundle install"
 
