@@ -16,17 +16,24 @@ module Devise # :nodoc:
 
       module InstanceMethods # :nodoc:
         def get_qr
+          gauth_secret
+        end
+
+        def gauth_secret
           if (gauth_secret_version || 0).positive?
             key_name = self.class.ga_kms_key_name
             credentials = self.class.ga_kms_credentials
             raise 'The kms key name has not been delivered' if key_name.blank?
             raise 'The kms credentials have not been delivered' if credentials.blank?
 
-            encrypted_secret = Base64.decode64(gauth_secret)
+            encrypted_secret = Base64.decode64(self[:gauth_secret])
             ::DeviseGoogleAuthenticator::KmsService.new(credentials, key_name)
                                                    .decrypt(encrypted_secret)
           else
-            gauth_secret
+            self[:gauth_secret]
+          end
+        end
+
         def gauth_secret=(value)
           if self.class.ga_kms_key_name.present? && self.class.ga_kms_credentials.present?
             encrypted_secret =
