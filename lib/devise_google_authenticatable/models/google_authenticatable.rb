@@ -27,6 +27,18 @@ module Devise # :nodoc:
                                                    .decrypt(encrypted_secret)
           else
             gauth_secret
+        def gauth_secret=(value)
+          if self.class.ga_kms_key_name.present? && self.class.ga_kms_credentials.present?
+            encrypted_secret =
+              ::DeviseGoogleAuthenticator::KmsService.new(self.class.ga_kms_credentials,
+                                                          self.class.ga_kms_key_name)
+                                                     .encrypt(value)
+            self[:gauth_secret_version] = 1
+            self[:gauth_secret] = Base64.encode64(encrypted_secret)
+            value
+          else
+            self[:gauth_secret_version] = 0
+            self[:gauth_secret] = value
           end
         end
 
@@ -111,18 +123,7 @@ module Devise # :nodoc:
         private
 
         def assign_auth_secret
-          secret = ROTP::Base32.random_base32(64)
-          if self.class.ga_kms_key_name.present? && self.class.ga_kms_credentials.present?
-            encrypted_secret =
-              ::DeviseGoogleAuthenticator::KmsService.new(self.class.ga_kms_credentials,
-                                                          self.class.ga_kms_key_name)
-                                                     .encrypt(secret)
-            self.gauth_secret = Base64.encode64(encrypted_secret)
-            self.gauth_secret_version = 1
-          else
-            self.gauth_secret = secret
-            self.gauth_secret_version = 0
-          end
+          self.gauth_secret = ROTP::Base32.random_base32(64)
         end
       end
 
