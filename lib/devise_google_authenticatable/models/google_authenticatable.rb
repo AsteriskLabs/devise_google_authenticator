@@ -16,6 +16,10 @@ module Devise # :nodoc:
 
       module InstanceMethods # :nodoc:
         def get_qr
+          decrypted_gauth_secret
+        end
+
+        def decrypted_gauth_secret
           if (gauth_secret_version || 0).positive?
             key_name = self.class.ga_kms_key_name
             credentials = self.class.ga_kms_credentials
