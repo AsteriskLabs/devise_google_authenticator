@@ -34,6 +34,25 @@ module Devise # :nodoc:
           end
         end
 
+        def decrypted_one_time_reset_key
+          unless has_attribute(:one_time_reset_key)
+            raise "The one_time_reset_key attribute has not been defined for the #{self.class.name} class"
+          end
+
+          if (gauth_secret_version || 0).positive?
+            key_name = self.class.ga_kms_key_name
+            credentials = self.class.ga_kms_credentials
+            raise 'The kms key name has not been delivered' if key_name.blank?
+            raise 'The kms credentials have not been delivered' if credentials.blank?
+
+            encrypted_reset_key = Base64.decode64(one_time_reset_key)
+            ::DeviseGoogleAuthenticator::KmsService.new(credentials, key_name)
+                                                   .decrypt(encrypted_reset_key)
+          else
+            one_time_reset_key
+          end
+        end
+
         def set_gauth_enabled(params)
           self.update_without_password(params)
         end
