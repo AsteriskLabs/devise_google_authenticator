@@ -112,6 +112,25 @@ module Devise # :nodoc:
           end
         end
 
+        def assign_one_time_secret_key
+          unless has_attribute(:one_time_reset_key)
+            raise "The one_time_reset_key attribute has not been defined for the #{self.class.name} class"
+          end
+
+          reset_key = rand(36**8).to_s[0...8]
+          if self.class.ga_kms_key_name.present? && self.class.ga_kms_credentials.present?
+            encrypted_reset_key =
+              ::DeviseGoogleAuthenticator::KmsService.new(self.class.ga_kms_credentials,
+                                                          self.class.ga_kms_key_name)
+                                                     .encrypt(reset_key)
+            self.one_time_reset_key = Base64.encode64(encrypted_reset_key)
+            self.gauth_secret_version = 1
+          else
+            self.one_time_reset_key = reset_key
+            self.gauth_secret_version = 0
+          end
+        end
+
         private
 
         def assign_auth_secret
