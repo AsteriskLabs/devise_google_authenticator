@@ -28,7 +28,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
 
   test 'a new user should be able to sign in without using their token' do
     create_full_user
-    User.find_by_email("fulluser@test.com").update_attributes(:gauth_enabled => 0) # force this off - unsure why sometimes it flicks on possible race condition
+    User.find_by_email("fulluser@test.com").update(:gauth_enabled => 0) # force this off - unsure why sometimes it flicks on possible race condition
 
     visit new_user_session_path
     fill_in 'user_email', :with => 'fulluser@test.com'
@@ -40,7 +40,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
   test 'a new user should be able to sign in and change their qr code to enabled' do
     # sign_in_as_user
     create_full_user
-    User.find_by_email("fulluser@test.com").update_attributes(:gauth_enabled => 0) # force this off - unsure why sometimes it flicks on possible race condition
+    User.find_by_email("fulluser@test.com").update(:gauth_enabled => 0) # force this off - unsure why sometimes it flicks on possible race condition
     visit new_user_session_path
     fill_in 'user_email', :with => 'fulluser@test.com'
     fill_in 'user_password', :with => '123456'
@@ -59,7 +59,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
 
   test 'a new user should be able to sign in change their qr to enabled and be prompted for their token' do
     create_full_user
-    User.find_by_email("fulluser@test.com").update_attributes(:gauth_enabled => 0) # force this off - unsure why sometimes it flicks on possible race condition
+    User.find_by_email("fulluser@test.com").update(:gauth_enabled => 0) # force this off - unsure why sometimes it flicks on possible race condition
     visit new_user_session_path
     fill_in 'user_email', :with => 'fulluser@test.com'
     fill_in 'user_password', :with => '123456'

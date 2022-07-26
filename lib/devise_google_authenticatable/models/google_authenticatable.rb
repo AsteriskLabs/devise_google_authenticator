@@ -21,11 +21,11 @@ module Devise # :nodoc:
 
         def set_gauth_enabled(param)
           #self.update_without_password(params[gauth_enabled])
-          self.update_attributes(:gauth_enabled => param)
+          self.update(:gauth_enabled => param)
         end
 
         def assign_tmp
-          self.update_attributes(:gauth_tmp => ROTP::Base32.random_base32(32), :gauth_tmp_datetime => DateTime.now)
+          self.update(:gauth_tmp => ROTP::Base32.random_base32(32), :gauth_tmp_datetime => DateTime.now)
           self.gauth_tmp
         end
 
