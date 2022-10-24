@@ -28,7 +28,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
 
   test 'a new user should be able to sign in without using their token' do
     create_full_user
-    User.find_by_email("fulluser@test.com").update_attributes(:gauth_enabled => 0) # force this off - unsure why sometimes it flicks on possible race condition
+    User.find_by_email("fulluser@test.com").update(:gauth_enabled => 0) # force this off - unsure why sometimes it flicks on possible race condition
 
     visit new_user_session_path
     fill_in 'user_email', :with => 'fulluser@test.com'
@@ -40,7 +40,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
   test 'a new user should be able to sign in and change their qr code to enabled' do
     # sign_in_as_user
     create_full_user
-    User.find_by_email("fulluser@test.com").update_attributes(:gauth_enabled => 0) # force this off - unsure why sometimes it flicks on possible race condition
+    User.find_by_email("fulluser@test.com").update(:gauth_enabled => 0) # force this off - unsure why sometimes it flicks on possible race condition
     visit new_user_session_path
     fill_in 'user_email', :with => 'fulluser@test.com'
     fill_in 'user_password', :with => '123456'
@@ -59,7 +59,7 @@ class InvitationTest < ActionDispatch::IntegrationTest
 
   test 'a new user should be able to sign in change their qr to enabled and be prompted for their token' do
     create_full_user
-    User.find_by_email("fulluser@test.com").update_attributes(:gauth_enabled => 0) # force this off - unsure why sometimes it flicks on possible race condition
+    User.find_by_email("fulluser@test.com").update(:gauth_enabled => 0) # force this off - unsure why sometimes it flicks on possible race condition
     visit new_user_session_path
     fill_in 'user_email', :with => 'fulluser@test.com'
     fill_in 'user_password', :with => '123456'
@@ -178,5 +178,53 @@ class InvitationTest < ActionDispatch::IntegrationTest
     assert_equal user_checkga_path, current_path
 
     Timecop.return
+  end
+
+  test 'skip validation will not prompt the checkga page' do
+    default_value = User.ga_skip_validation_if
+
+    $skip_validation = false
+    User.ga_skip_validation_if = ->(user, request) { $skip_validation }
+
+    testuser = User.create!(
+      :username              => 'skip_validation_usertest',
+      :email                 => 'skip_validation@test.com',
+      :password              => '123456',
+      :password_confirmation => '123456'
+    )
+    testuser.gauth_enabled = 1
+    testuser.save!
+
+    Capybara.reset_sessions!
+
+    sign_in_as_user(testuser)
+    assert_equal user_checkga_path, current_path
+
+    $skip_validation = true
+
+    Capybara.reset_sessions!
+
+    sign_in_as_user(testuser)
+    assert_equal root_path, current_path
+
+    Capybara.reset_sessions!
+
+    # Skip if from localhost
+
+    User.ga_skip_validation_if = ->(user, request) { request.remote_ip == '127.0.0.1' }
+
+    sign_in_as_user(testuser)
+    assert_equal root_path, current_path
+
+    Capybara.reset_sessions!
+
+    # Skip if not from localhost
+
+    User.ga_skip_validation_if = ->(user, request) { request.remote_ip != '127.0.0.1' }
+
+    sign_in_as_user(testuser)
+    assert_equal user_checkga_path, current_path
+
+    User.ga_skip_validation_if = default_value
   end
 end

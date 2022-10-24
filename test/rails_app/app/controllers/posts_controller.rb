@@ -59,7 +59,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
 
     respond_to do |format|
-      if @post.update_attributes(params[:post])
+      if @post.update(params[:post])
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { head :ok }
       else

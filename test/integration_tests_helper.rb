@@ -5,20 +5,18 @@ class ActionController::IntegrationTest
   end
   
   def create_full_user
-    @@user ||= begin
-      user = User.create!(
-        :username              => 'usertest',
-        :email                 => 'fulluser@test.com',
-        :password              => '123456',
-        :password_confirmation => '123456'
-      )
-      @@user = user
-      user
-    end
+    @@user ||= User.create!(
+      :username              => 'usertest',
+      :email                 => 'fulluser@test.com',
+      :password              => '123456',
+      :password_confirmation => '123456'
+    )
   end
 
   def create_and_signin_gauth_user
     testuser = create_full_user
+    testuser.gauth_enabled = false
+    testuser.save!
     sign_in_as_user(testuser)
     visit user_displayqr_path
     check 'user_gauth_enabled'
