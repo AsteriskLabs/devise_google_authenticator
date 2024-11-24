@@ -1,5 +1,5 @@
 class Devise::DisplayqrController < DeviseController
-  prepend_before_filter :authenticate_scope!, :only => [:show, :update, :refresh]
+  prepend_before_action :authenticate_scope!, only: %i[show update refresh]
 
   include Devise::Controllers::Helpers
 
@@ -23,7 +23,7 @@ class Devise::DisplayqrController < DeviseController
 
     if resource.set_gauth_enabled(params[resource_name]['gauth_enabled'])
       set_flash_message :notice, (resource.gauth_enabled? ? :enabled : :disabled)
-      sign_in scope, resource, :bypass => true
+      sign_in scope, resource, bypass: true
       redirect_to stored_location_for(scope) || :root
     else
       render :show
@@ -31,18 +31,19 @@ class Devise::DisplayqrController < DeviseController
   end
 
   def refresh
-    unless resource.nil?
+    if resource.nil?
+      redirect_to :root
+    else
       resource.send(:assign_auth_secret)
       resource.save
       set_flash_message :notice, :newtoken
-      sign_in scope, resource, :bypass => true
+      sign_in scope, resource, bypass: true
       redirect_to [resource_name, :displayqr]
-    else
-      redirect_to :root
     end
   end
 
   private
+
   def scope
     resource_name.to_sym
   end
@@ -55,6 +56,7 @@ class Devise::DisplayqrController < DeviseController
   # 7/2/15 - Unsure if this is used anymore - @xntrik
   def resource_params
     return params.require(resource_name.to_sym).permit(:gauth_enabled) if strong_parameters_enabled?
+
     params
   end
 
